@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { motion, useCycle } from 'framer-motion';
+import { motion, useCycle, AnimatePresence } from 'framer-motion';
 import { 
   FaArrowRight, FaTools, FaMagic, FaRocket
 } from 'react-icons/fa';
@@ -8,12 +8,19 @@ import BicycleAnimation from '../components/BicycleAnimation';
 import type { BicycleAnimationRef } from '../components/BicycleAnimation';
 
 const Hero = () => {
+  const [interactiveMode, setInteractiveMode] = useState("default");
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
-  const [interactiveMode, cycleInteractiveMode] = useCycle("default", "repair", "customize", "speed");
   const containerRef = useRef<HTMLDivElement>(null);
   const bicycleAnimationRef = useRef<BicycleAnimationRef>(null);
   
-  // Mouse tracking for parallax and glow effects
+  const cycleMode = (targetMode: string) => {
+    if (targetMode !== interactiveMode) {
+      setInteractiveMode(targetMode);
+    } else {
+      setInteractiveMode("default");
+    }
+  };
+  
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (!containerRef.current) return;
@@ -21,16 +28,14 @@ const Hero = () => {
       const { clientX, clientY } = e;
       const { left, top, width, height } = containerRef.current.getBoundingClientRect();
       
-      // Normalize position (0 to 1)
       const x = (clientX - left) / width;
       const y = (clientY - top) / height;
       
       setCursorPosition({ x, y });
       
-      // Update the bicycle position using the ref method - with reduced movement range
       if (bicycleAnimationRef.current) {
-        const moveX = (x - 0.5) * 10; // Reduced movement for stability
-        const moveY = (y - 0.5) * 5; // Reduced movement for stability
+        const moveX = (x - 0.5) * 10;
+        const moveY = (y - 0.5) * 5;
         bicycleAnimationRef.current.updateBikePosition(moveX, moveY);
       }
     };
@@ -226,7 +231,7 @@ const Hero = () => {
               ].map((item, index) => (
                 <motion.button
                   key={index}
-                  onClick={() => cycleInteractiveMode()}
+                  onClick={() => cycleMode(item.mode)}
                   className={`px-4 py-3 rounded-lg flex items-center gap-2 transition-all ${
                     interactiveMode === item.mode
                       ? "bg-orange-500 text-white" 
