@@ -14,7 +14,7 @@ const About = () => {
   const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 0]);
 
   const stats = [
-    { value: '10+', label: 'Years Experience', icon: <FaUsers />, delay: 0.1 },
+    { value: '20+', label: 'Years Experience', icon: <FaUsers />, delay: 0.1 },
     { value: '1000+', label: 'Happy Customers', icon: <FaTrophy />, delay: 0.2 },
     { value: '5000+', label: 'Repairs Completed', icon: <FaTools />, delay: 0.3 },
     { value: '500+', label: 'Premium Parts', icon: <FaBicycle />, delay: 0.4 },
