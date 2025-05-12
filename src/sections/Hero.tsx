@@ -9,7 +9,6 @@ import type { BicycleAnimationRef } from '../components/BicycleAnimation';
 
 const Hero = () => {
   const [interactiveMode, setInteractiveMode] = useState("default");
-  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
   const bicycleAnimationRef = useRef<BicycleAnimationRef>(null);
   
@@ -23,21 +22,19 @@ const Hero = () => {
   
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      if (!containerRef.current) return;
+      if (!containerRef.current || !bicycleAnimationRef.current) return;
       
       const { clientX, clientY } = e;
       const { left, top, width, height } = containerRef.current.getBoundingClientRect();
       
-      const x = (clientX - left) / width;
-      const y = (clientY - top) / height;
+      // Calculate normalized position with strong dampening
+      const rawX = (clientX - left) / width;
+      const rawY = (clientY - top) / height;
       
-      setCursorPosition({ x, y });
-      
-      if (bicycleAnimationRef.current) {
-        const moveX = (x - 0.5) * 10;
-        const moveY = (y - 0.5) * 5;
-        bicycleAnimationRef.current.updateBikePosition(moveX, moveY);
-      }
+      // Very minimal movement for bicycle only
+      const moveX = (rawX - 0.5) * 4;
+      const moveY = (rawY - 0.5) * 2;
+      bicycleAnimationRef.current.updateBikePosition(moveX, moveY);
     };
     
     window.addEventListener('mousemove', handleMouseMove);
@@ -53,85 +50,87 @@ const Hero = () => {
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
     >
-      {/* Dynamic Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black to-gray-800 overflow-hidden">
-        {/* Animated circles */}
-        {Array.from({ length: 15 }).map((_, i) => (
+      {/* Fixed Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black">
+        {/* Static gradient overlay */}
+        <div className="absolute inset-0 opacity-20 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-orange-500/20 via-transparent to-transparent"></div>
+        
+        {/* Fixed position decorative elements */}
+        <div className="absolute top-[15%] left-[10%] w-24 h-24 rounded-full bg-orange-500/5 blur-3xl"></div>
+        <div className="absolute bottom-[20%] right-[15%] w-32 h-32 rounded-full bg-orange-500/5 blur-3xl"></div>
+        <div className="absolute top-[40%] right-[20%] w-16 h-16 rounded-full bg-orange-600/5 blur-2xl"></div>
+      </div>
+      
+      {/* Stable Grid Pattern */}
+      <div className="absolute inset-0 opacity-5 pointer-events-none">
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="smallGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(249, 115, 22, 0.3)" strokeWidth="0.5"/>
+            </pattern>
+            <pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse">
+              <rect width="100" height="100" fill="url(#smallGrid)"/>
+              <path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(249, 115, 22, 0.5)" strokeWidth="1"/>
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#grid)" />
+        </svg>
+      </div>
+      
+      {/* Fixed animated accents */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Top accent */}
+        <motion.div
+          className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-orange-500/20 to-transparent"
+          animate={{ 
+            x: ['-100%', '100%'],
+            opacity: [0, 0.5, 0]
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            repeatType: "loop",
+            ease: "linear"
+          }}
+        />
+        
+        {/* Bottom accent */}
+        <motion.div
+          className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-orange-500/20 to-transparent"
+          animate={{ 
+            x: ['100%', '-100%'],
+            opacity: [0, 0.5, 0]
+          }}
+          transition={{
+            duration: 18,
+            repeat: Infinity,
+            repeatType: "loop",
+            ease: "linear"
+          }}
+        />
+        
+        {/* Minimal animated dots */}
+        {[1, 2, 3, 4].map((item) => (
           <motion.div
-            key={i}
-            className="absolute rounded-full bg-gradient-to-br from-orange-500/20 to-orange-600/5"
+            key={item}
+            className="absolute w-2 h-2 rounded-full bg-orange-500/30"
             style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              width: `${Math.random() * 200 + 50}px`,
-              height: `${Math.random() * 200 + 50}px`,
-              filter: 'blur(40px)'
+              top: `${20 + item * 15}%`,
+              left: `${10 + item * 20}%`,
             }}
             animate={{
-              y: [0, Math.random() * 50 - 25],
-              x: [0, Math.random() * 50 - 25],
-              scale: [1, Math.random() * 0.3 + 0.8, 1],
-              opacity: [0.2, 0.4, 0.2]
+              y: [0, item % 2 === 0 ? 30 : -30, 0],
+              opacity: [0.2, 0.4, 0.2],
             }}
             transition={{
-              duration: Math.random() * 10 + 10,
+              duration: 10 + item * 2,
               repeat: Infinity,
-              repeatType: 'reverse'
+              repeatType: "reverse",
+              ease: "easeInOut"
             }}
           />
         ))}
       </div>
-      
-      {/* Animated Grid Lines */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="w-full h-full grid grid-cols-12 gap-4">
-          {Array.from({ length: 12 }).map((_, i) => (
-            <motion.div
-              key={i}
-              className="h-full w-px bg-gradient-to-b from-transparent via-orange-500/30 to-transparent"
-              initial={{ height: 0 }}
-              animate={{ height: '100%' }}
-              transition={{ 
-                duration: 2, 
-                delay: i * 0.1,
-                ease: "easeOut"
-              }}
-            />
-          ))}
-        </div>
-        <div className="w-full h-full grid grid-rows-12 gap-4">
-          {Array.from({ length: 12 }).map((_, i) => (
-            <motion.div
-              key={i}
-              className="w-full h-px bg-gradient-to-r from-transparent via-orange-500/30 to-transparent"
-              initial={{ width: 0 }}
-              animate={{ width: '100%' }}
-              transition={{ 
-                duration: 2, 
-                delay: i * 0.1,
-                ease: "easeOut"
-              }}
-            />
-          ))}
-        </div>
-      </div>
-      
-      {/* Custom radial glow following cursor */}
-      <motion.div
-        className="pointer-events-none absolute w-[500px] h-[500px] rounded-full"
-        style={{
-          background: `radial-gradient(circle at center, rgba(249, 115, 22, 0.3) 0%, transparent 70%)`,
-          left: `calc(${cursorPosition.x * 100}% - 250px)`,
-          top: `calc(${cursorPosition.y * 100}% - 250px)`,
-        }}
-        animate={{
-          opacity: [0.3, 0.7, 0.3],
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-        }}
-      />
 
       {/* Main content container */}
       <div className="container mx-auto px-6 h-full flex flex-col items-center justify-center relative z-10">
@@ -309,7 +308,7 @@ const Hero = () => {
               <p className="text-sm">10+ Years Experience</p>
             </motion.div>
 
-            {/* Bicycle Animation Component - now in a fixed container */}
+            {/* Bicycle Animation Component */}
             <div className="relative w-full h-full flex items-center justify-center pt-8">
               <BicycleAnimation 
                 ref={bicycleAnimationRef} 

@@ -184,77 +184,79 @@ const BicycleAnimation = forwardRef<BicycleAnimationRef, BicycleAnimationProps>(
     handleModeChange();
   }, [interactiveMode, bicycleControls, customizeControls]);
   
-  // Expose methods to parent component - MODIFIED for better positioning
+  // Expose methods to parent component - MODIFIED to be stable
   useImperativeHandle(ref, () => ({
     updateBikePosition: (moveX: number, moveY: number) => {
-      // Only apply subtle transformations to content inside the container
-      // but keep the main container fixed in place
+      // Only apply very subtle transformations to content inside the container
       if (bikeContentRef.current) {
-        bikeContentRef.current.style.transform = `translate(${moveX}px, ${moveY}px)`;
+        // Apply strong damping to make movement barely noticeable
+        const dampedX = moveX * 0.4;
+        const dampedY = moveY * 0.4;
+        bikeContentRef.current.style.transform = `translate(${dampedX}px, ${dampedY}px)`;
       }
       
-      // Create particle trail effect
-      if (particlesRef.current && Math.random() > 0.7) {
-        createParticle(moveX, moveY);
-      }
+      // No particle trail effect - removed to eliminate visual bugs
     }
   }));
   
-  // Particle effect
+  // Particle effect - REDUCED frequency and visibility
   const createParticle = (moveX: number, moveY: number) => {
     if (!particlesRef.current) return;
     
-    const particle = document.createElement('div');
-    const size = Math.random() * 8 + 4;
-    const speedX = Math.random() * 2 - 1;
-    const speedY = Math.random() * 2 - 1;
-    
-    particle.style.width = `${size}px`;
-    particle.style.height = `${size}px`;
-    particle.style.borderRadius = '50%';
-    particle.style.position = 'absolute';
-    particle.style.pointerEvents = 'none';
-    
-    // Different particles for different modes
-    if (interactiveMode === "customize") {
-      particle.style.background = `hsl(${Math.random() * 360}, 100%, 70%)`;
-    } else if (interactiveMode === "speed") {
-      particle.style.background = '#f97316';
-      particle.style.boxShadow = '0 0 8px #f97316';
-    } else {
-      particle.style.background = 'rgba(249, 115, 22, 0.7)';
-    }
-    
-    // Position at the center of the container plus the parallax offset
-    particle.style.left = `calc(50% + ${moveX}px)`;
-    particle.style.top = `calc(50% + ${moveY}px)`;
-    
-    particlesRef.current.appendChild(particle);
-    
-    // Animate the particle
-    let posX = 0;
-    let posY = 0;
-    let opacity = 1;
-    
-    const animate = () => {
-      if (opacity <= 0) {
-        if (particlesRef.current && particle.parentNode === particlesRef.current) {
-          particlesRef.current.removeChild(particle);
-        }
-        return;
+    // Only create particles occasionally to reduce visual noise
+    if (Math.random() > 0.85) {
+      const particle = document.createElement('div');
+      const size = Math.random() * 6 + 3;
+      const speedX = Math.random() * 1.5 - 0.75;
+      const speedY = Math.random() * 1.5 - 0.75;
+      
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
+      particle.style.borderRadius = '50%';
+      particle.style.position = 'absolute';
+      particle.style.pointerEvents = 'none';
+      
+      // Different particles for different modes - REDUCED opacity
+      if (interactiveMode === "customize") {
+        particle.style.background = `hsla(${Math.random() * 360}, 100%, 70%, 0.6)`;
+      } else if (interactiveMode === "speed") {
+        particle.style.background = 'rgba(249, 115, 22, 0.6)';
+        particle.style.boxShadow = '0 0 4px rgba(249, 115, 22, 0.3)';
+      } else {
+        particle.style.background = 'rgba(249, 115, 22, 0.4)';
       }
       
-      posX += speedX;
-      posY += speedY;
-      opacity -= 0.02;
+      // Position at the center of the container plus the parallax offset
+      particle.style.left = `calc(50% + ${moveX}px)`;
+      particle.style.top = `calc(50% + ${moveY}px)`;
       
-      particle.style.transform = `translate(${posX}px, ${posY}px)`;
-      particle.style.opacity = opacity.toString();
+      particlesRef.current.appendChild(particle);
+      
+      // Animate the particle
+      let posX = 0;
+      let posY = 0;
+      let opacity = 0.7;
+      
+      const animate = () => {
+        if (opacity <= 0) {
+          if (particlesRef.current && particle.parentNode === particlesRef.current) {
+            particlesRef.current.removeChild(particle);
+          }
+          return;
+        }
+        
+        posX += speedX;
+        posY += speedY;
+        opacity -= 0.03;
+        
+        particle.style.transform = `translate(${posX}px, ${posY}px)`;
+        particle.style.opacity = opacity.toString();
+        
+        requestAnimationFrame(animate);
+      };
       
       requestAnimationFrame(animate);
-    };
-    
-    requestAnimationFrame(animate);
+    }
   };
   
   // Wheel animation with safety check
@@ -361,11 +363,28 @@ const BicycleAnimation = forwardRef<BicycleAnimationRef, BicycleAnimationProps>(
   `;
   
   return (
-    <div className="relative w-full h-full flex items-center justify-center overflow-visible" ref={bikeRef}>
-      {/* Particle container - fixed position */}
-      <div ref={particlesRef} className="absolute inset-0 pointer-events-none overflow-hidden" />
+    <div className="relative w-full h-full flex items-center justify-center" ref={bikeRef}>
+      {/* Fixed stable background - no particles that can cause issues */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        {/* Static circle background */}
+        <div className="absolute w-[280px] h-[280px] rounded-full bg-gray-800/20 blur-md"></div>
+        
+        {/* Simple glow effect based on mode */}
+        {speedMode && (
+          <div className="absolute w-[300px] h-[300px] rounded-full bg-orange-500/5 blur-xl"></div>
+        )}
+        {customizeMode && (
+          <div 
+            className="absolute w-[300px] h-[300px] rounded-full blur-xl"
+            style={{ backgroundColor: `${selectedColor}10` }}
+          ></div>
+        )}
+        {repairMode && (
+          <div className="absolute w-[300px] h-[300px] rounded-full bg-yellow-500/5 blur-xl"></div>
+        )}
+      </div>
       
-      {/* Content container that can move slightly with mouse for parallax effect */}
+      {/* Content container with limited movement */}
       <div 
         ref={bikeContentRef} 
         className="relative w-[280px] h-[280px] md:w-[350px] md:h-[350px] flex items-center justify-center"
@@ -374,8 +393,8 @@ const BicycleAnimation = forwardRef<BicycleAnimationRef, BicycleAnimationProps>(
         <motion.div
           className="relative w-full h-full flex items-center justify-center"
           animate={{
-            rotateX: customizeMode ? [0, 5, 0] : 0,
-            rotateY: customizeMode ? [0, 8, 0] : 0,
+            rotateX: customizeMode ? [0, 3, 0] : 0,
+            rotateY: customizeMode ? [0, 5, 0] : 0,
             transition: {
               duration: 4,
               repeat: Infinity,
