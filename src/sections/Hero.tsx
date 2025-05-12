@@ -288,14 +288,14 @@ const Hero = () => {
           
           {/* Right side - Interactive bicycle visualization */}
           <motion.div 
-            className="relative md:w-1/2 h-[450px] mt-8 md:mt-0 flex items-center justify-center"
+            className="relative md:w-1/2 h-[500px] mt-8 md:mt-0 flex items-center justify-center"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 1 }}
           >
             {/* Expert service badge */}
             <motion.div
-              className="absolute -bottom-6 -right-6 bg-gradient-to-br from-orange-500 to-orange-600 text-white p-4 rounded-xl shadow-xl z-10"
+              className="absolute bottom-4 right-4 bg-gradient-to-br from-orange-500 to-orange-600 text-white p-4 rounded-xl shadow-xl z-10"
               initial={{ opacity: 0, scale: 0, rotate: -10 }}
               animate={{ opacity: 1, scale: 1, rotate: 0 }}
               transition={{ delay: 2, duration: 0.5, type: "spring" }}
@@ -310,7 +310,7 @@ const Hero = () => {
             </motion.div>
 
             {/* Bicycle Animation Component - now in a fixed container */}
-            <div className="relative w-full h-full flex items-center justify-center">
+            <div className="relative w-full h-full flex items-center justify-center pt-8">
               <BicycleAnimation 
                 ref={bicycleAnimationRef} 
                 interactiveMode={interactiveMode} 

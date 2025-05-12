@@ -361,14 +361,14 @@ const BicycleAnimation = forwardRef<BicycleAnimationRef, BicycleAnimationProps>(
   `;
   
   return (
-    <div className="relative w-full h-full flex items-center justify-center overflow-hidden" ref={bikeRef}>
+    <div className="relative w-full h-full flex items-center justify-center overflow-visible" ref={bikeRef}>
       {/* Particle container - fixed position */}
       <div ref={particlesRef} className="absolute inset-0 pointer-events-none overflow-hidden" />
       
       {/* Content container that can move slightly with mouse for parallax effect */}
       <div 
         ref={bikeContentRef} 
-        className="relative w-[300px] h-[300px] md:w-[400px] md:h-[400px] flex items-center justify-center"
+        className="relative w-[280px] h-[280px] md:w-[350px] md:h-[350px] flex items-center justify-center"
       >
         {/* 3D transformation container */}
         <motion.div
@@ -392,7 +392,7 @@ const BicycleAnimation = forwardRef<BicycleAnimationRef, BicycleAnimationProps>(
           >
             {/* Main bicycle - centered and fixed size */}
             <motion.div
-              className="w-[180px] h-[180px] md:w-[220px] md:h-[220px]"
+              className="w-[150px] h-[150px] md:w-[180px] md:h-[180px]"
               animate={bicycleControls}
               style={{
                 filter: speedMode ? 'drop-shadow(0 0 12px rgba(249, 115, 22, 0.5))' : undefined,
@@ -815,7 +815,7 @@ const BicycleAnimation = forwardRef<BicycleAnimationRef, BicycleAnimationProps>(
                     {repairModeParts.map((part, index) => {
                       // Calculate fixed positions for repair parts in a circle around the bike
                       const angle = (index / repairModeParts.length) * 2 * Math.PI;
-                      const radius = 110; // Fixed radius
+                      const radius = 90; // Reduced radius
                       const x = Math.cos(angle) * radius;
                       const y = Math.sin(angle) * radius;
                       
@@ -863,7 +863,7 @@ const BicycleAnimation = forwardRef<BicycleAnimationRef, BicycleAnimationProps>(
                               {/* Part indicator with tool icon */}
                               <div className="relative">
                                 <FaCircle 
-                                  size={30} 
+                                  size={24} 
                                   color={part.color} 
                                   className="filter drop-shadow-lg" 
                                 />
@@ -970,11 +970,11 @@ const BicycleAnimation = forwardRef<BicycleAnimationRef, BicycleAnimationProps>(
             
             {/* Wheel animations - positioned relative to the bicycle */}
             <div 
-              className="absolute top-[45%] left-[22%] w-16 h-16 cursor-pointer flex items-center justify-center"
+              className="absolute top-[45%] left-[18%] w-12 h-12 cursor-pointer flex items-center justify-center"
               onClick={startWheelSpin}
             >
               <motion.div
-                className={`w-14 h-14 rounded-full border-4 ${
+                className={`w-10 h-10 rounded-full border-4 ${
                   speedMode 
                     ? "border-dashed border-orange-500/70 text-orange-500/70" 
                     : customizeMode
@@ -990,11 +990,11 @@ const BicycleAnimation = forwardRef<BicycleAnimationRef, BicycleAnimationProps>(
             </div>
             
             <div 
-              className="absolute top-[45%] right-[22%] w-16 h-16 cursor-pointer flex items-center justify-center"
+              className="absolute top-[45%] right-[18%] w-12 h-12 cursor-pointer flex items-center justify-center"
               onClick={startWheelSpin}
             >
               <motion.div
-                className={`w-14 h-14 rounded-full border-4 ${
+                className={`w-10 h-10 rounded-full border-4 ${
                   speedMode 
                     ? "border-dashed border-orange-500/70 text-orange-500/70" 
                     : customizeMode
@@ -1014,7 +1014,7 @@ const BicycleAnimation = forwardRef<BicycleAnimationRef, BicycleAnimationProps>(
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
             {/* Main gear area - clickable */}
             <div 
-              className="absolute bottom-[38%] left-[45%] w-16 h-16 cursor-pointer pointer-events-auto"
+              className="absolute bottom-[42%] left-[45%] w-12 h-12 cursor-pointer pointer-events-auto"
               onClick={startGearsAnimation}
             >
               {/* Main gear */}
@@ -1035,13 +1035,13 @@ const BicycleAnimation = forwardRef<BicycleAnimationRef, BicycleAnimationProps>(
                   color: customizeMode ? selectedColor : undefined
                 }}
               >
-                <FaCog size={36} />
+                <FaCog size={28} />
               </motion.div>
             </div>
             
             {/* Secondary gears positioned absolutely */}
             <motion.div 
-              className={speedMode ? "absolute bottom-[38%] left-[37%] text-orange-500/60" : "absolute bottom-[38%] left-[37%] text-orange-500/60"}
+              className={speedMode ? "absolute bottom-[42%] left-[37%] text-orange-500/60" : "absolute bottom-[42%] left-[37%] text-orange-500/60"}
               animate={{
                 rotate: -360,
                 transition: { 
@@ -1056,11 +1056,11 @@ const BicycleAnimation = forwardRef<BicycleAnimationRef, BicycleAnimationProps>(
                 opacity: customizeMode ? 0.6 : undefined
               }}
             >
-              <FaCog size={26} />
+              <FaCog size={20} />
             </motion.div>
             
             <motion.div 
-              className="absolute bottom-[45%] left-[55%] text-orange-500/50"
+              className="absolute bottom-[45%] left-[54%] text-orange-500/50"
               animate={{
                 rotate: 360,
                 transition: { 
@@ -1075,11 +1075,11 @@ const BicycleAnimation = forwardRef<BicycleAnimationRef, BicycleAnimationProps>(
                 opacity: customizeMode ? 0.5 : undefined
               }}
             >
-              <FaCog size={22} />
+              <FaCog size={18} />
             </motion.div>
             
             <motion.div 
-              className="absolute bottom-[30%] left-[60%] text-orange-500/40"
+              className="absolute bottom-[37%] left-[58%] text-orange-500/40"
               animate={{
                 rotate: -360,
                 transition: { 
@@ -1094,7 +1094,7 @@ const BicycleAnimation = forwardRef<BicycleAnimationRef, BicycleAnimationProps>(
                 opacity: customizeMode ? 0.4 : undefined
               }}
             >
-              <FaCog size={18} />
+              <FaCog size={14} />
             </motion.div>
           </div>
           
