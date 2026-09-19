@@ -1,3 +1,7 @@
+import { shop } from '../data/shop';
+
+export const hoursLine = shop.hours.map((h) => `${h.day}, ${h.time}`).join(' · ');
+
 export const todayStatus = (now = new Date()) => {
   const parts = new Intl.DateTimeFormat('en-US', {
     timeZone: 'Asia/Pontianak',

@@ -1,7 +1,8 @@
 import { useEffect, useRef, type ReactNode } from 'react';
+import Eyebrow from '../components/Eyebrow';
 import rim from '../assets/products/rim-vnd.webp';
 import { shop } from '../data/shop';
-import { todayStatus } from '../lib/hours';
+import { hoursLine, todayStatus } from '../lib/hours';
 import { waLink } from '../lib/wa';
 
 const Speedo = () => {
@@ -58,17 +59,15 @@ const Speedo = () => {
 
 const Fact = ({ label, children }: { label: string; children: ReactNode }) => (
   <div className="border-t border-white/10 py-5 first:border-t-0 sm:border-t-0 sm:border-l sm:py-6 sm:pl-6 sm:first:border-l-0 sm:first:pl-0">
-    <dt className="flex items-center gap-2 text-[0.6875rem] font-medium tracking-[0.2em] text-white/45 uppercase">
-      <span className="h-px w-3 bg-sun" aria-hidden="true" />
+    <Eyebrow as="dt" tone="dark">
       {label}
-    </dt>
+    </Eyebrow>
     <dd className="mt-2 font-head text-base leading-snug font-semibold">{children}</dd>
   </div>
 );
 
 const Hero = () => {
   const status = todayStatus();
-  const hoursLine = shop.hours.map((h) => `${h.day}, ${h.time}`).join(' · ');
 
   return (
     <section id="top" className="bg-ink text-white">

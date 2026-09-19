@@ -1,3 +1,4 @@
+import Eyebrow from '../components/Eyebrow';
 import { products } from '../data/products';
 import { waLink } from '../lib/wa';
 
@@ -5,10 +6,7 @@ const Products = () => (
   <section id="products" className="mx-auto max-w-6xl px-4 py-16 sm:px-6 md:py-20">
     <header className="flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
       <div>
-        <p className="flex items-center gap-2 text-[0.6875rem] font-medium tracking-[0.2em] text-muted uppercase">
-          <span className="h-px w-3 bg-brand" aria-hidden="true" />
-          Katalog
-        </p>
+        <Eyebrow>Katalog</Eyebrow>
         <h2 className="mt-3 text-3xl font-extrabold sm:text-4xl">Produk di toko</h2>
       </div>
       <p className="text-muted">Harga sesuai ukuran &amp; tipe motor.</p>
@@ -51,7 +49,7 @@ const Products = () => (
     </ul>
 
     <div className="mt-12 flex flex-wrap items-baseline gap-x-4 gap-y-1.5 border-t border-line pt-5">
-      <p className="text-[0.6875rem] font-medium tracking-[0.2em] text-muted uppercase">Juga tersedia</p>
+      <Eyebrow>Juga tersedia</Eyebrow>
       <p className="text-muted">Oli, aki, busi, kampas rem, rantai &amp; gir, dan lampu.</p>
     </div>
   </section>
