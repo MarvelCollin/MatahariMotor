@@ -1,6 +1,6 @@
 import Navbar from './components/Navbar';
 import Hero from './sections/Hero';
-import Services from './sections/Services';
+import Layanan from './sections/Layanan';
 import Parts from './sections/Parts';
 import About from './sections/About';
 import Testimonials from './sections/Testimonials';
@@ -13,8 +13,8 @@ function App() {
       <Navbar />
       <main>
         <Hero />
+        <Layanan />
         <div className="bg-black">
-          <Services />
           <Parts />
           <About />
           <Testimonials />
