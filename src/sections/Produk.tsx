@@ -10,8 +10,8 @@ const Produk = () => (
 
     <ul className="mt-8 grid grid-cols-2 gap-x-4 gap-y-8 lg:grid-cols-4">
       {products.map((p) => (
-        <li key={p.id} className="flex flex-col">
-          <div className="relative aspect-square rounded-xl bg-tile">
+        <li key={p.id} className="group flex flex-col">
+          <div className="relative aspect-square rounded-xl bg-tile transition-colors group-hover:bg-[#e9e9e7]">
             <img
               src={p.image}
               alt={p.name}

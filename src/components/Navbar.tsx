@@ -10,6 +10,21 @@ const links = [
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState('');
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => e.isIntersecting && setActive(`#${e.target.id}`));
+      },
+      { rootMargin: '-45% 0px -50% 0px' },
+    );
+    ['top', ...links.map((l) => l.href.slice(1))].forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false);
@@ -27,7 +42,12 @@ const Navbar = () => {
 
         <nav className="hidden items-center gap-7 md:flex" aria-label="Utama">
           {links.map((l) => (
-            <a key={l.href} href={l.href} className="text-white/80 transition-colors hover:text-white">
+            <a
+              key={l.href}
+              href={l.href}
+              aria-current={active === l.href ? 'true' : undefined}
+              className="text-white/70 decoration-merah decoration-2 underline-offset-8 transition-colors hover:text-white aria-[current=true]:text-white aria-[current=true]:underline"
+            >
               {l.label}
             </a>
           ))}
