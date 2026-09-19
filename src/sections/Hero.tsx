@@ -1,12 +1,26 @@
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import { useEffect, useRef } from 'react';
 import velg from '../assets/products/velg-vnd.webp';
 import { categories, shop } from '../data/shop';
 import { waLink } from '../lib/wa';
 
 const Sun = () => {
-  const reduce = useReducedMotion();
-  const { scrollY } = useScroll();
-  const rotate = useTransform(scrollY, [0, 900], [0, reduce ? 0 : 300]);
+  const rim = useRef<HTMLImageElement>(null);
+
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let frame = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        if (rim.current) rim.current.style.transform = `rotate(${Math.min(window.scrollY, 1500) / 3}deg)`;
+      });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', onScroll);
+    };
+  }, []);
 
   return (
     <div className="relative mx-auto aspect-square w-full max-w-[26rem]">
@@ -30,12 +44,12 @@ const Sun = () => {
           />
         ))}
       </svg>
-      <motion.img
+      <img
+        ref={rim}
         src={velg}
         alt="Velg racing VND lima palang"
         width={277}
         height={278}
-        style={{ rotate }}
         className="absolute inset-[17%] h-[66%] w-[66%] object-contain drop-shadow-[6px_8px_0_rgba(23,20,15,0.35)]"
       />
       <p className="absolute -bottom-2 left-0 bg-paper px-2 py-1 font-mono text-xs sm:text-sm">
