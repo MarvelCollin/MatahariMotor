@@ -97,7 +97,6 @@ const Testimonials = () => {
 
   return (
     <section id="testimonials" className="py-24 bg-gray-900 relative overflow-hidden">
-      {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden opacity-5">
         <div className="absolute -right-40 -top-40 h-96 w-96 rounded-full bg-orange-500"></div>
         <div className="absolute -left-20 top-1/3 h-64 w-64 rounded-full bg-orange-600"></div>
@@ -187,7 +186,6 @@ const Testimonials = () => {
             </div>
           </div>
 
-          {/* Navigation buttons */}
           <div className="flex justify-between absolute top-1/2 left-0 right-0 transform -translate-y-1/2 px-4">
             <motion.button
               onClick={handlePrev}
@@ -213,7 +211,6 @@ const Testimonials = () => {
           </div>
         </div>
 
-        {/* Indicator dots */}
         <div className="flex justify-center mt-8 space-x-2">
           {testimonials.map((_, index) => (
             <motion.button

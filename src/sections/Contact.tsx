@@ -25,7 +25,6 @@ const Contact = () => {
     e.preventDefault();
     setSubmitting(true);
     
-    // Simulate form submission
     setTimeout(() => {
       setSubmitting(false);
       setSubmitted(true);
@@ -37,7 +36,6 @@ const Contact = () => {
         message: ''
       });
       
-      // Reset submission message after 5 seconds
       setTimeout(() => {
         setSubmitted(false);
       }, 5000);

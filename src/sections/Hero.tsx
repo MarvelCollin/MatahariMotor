@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { motion, useCycle, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { 
   FaArrowRight, FaTools, FaMagic, FaRocket
 } from 'react-icons/fa';
@@ -27,11 +27,9 @@ const Hero = () => {
       const { clientX, clientY } = e;
       const { left, top, width, height } = containerRef.current.getBoundingClientRect();
       
-      // Calculate normalized position with strong dampening
       const rawX = (clientX - left) / width;
       const rawY = (clientY - top) / height;
       
-      // Very minimal movement for bicycle only
       const moveX = (rawX - 0.5) * 4;
       const moveY = (rawY - 0.5) * 2;
       bicycleAnimationRef.current.updateBikePosition(moveX, moveY);
@@ -152,7 +150,7 @@ const Hero = () => {
         <div className="w-full flex flex-col md:flex-row items-center justify-between mt-16 md:mt-0">
           {/* Left side - Text content */}
           <motion.div 
-            className="md:w-1/2 text-white"
+            className="md:w-1/2 text-white px-2 md:px-0"
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ 
@@ -162,7 +160,7 @@ const Hero = () => {
             }}
           >
             <motion.h1 
-              className="text-5xl md:text-7xl font-bold mb-4"
+              className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.7 }}
@@ -198,7 +196,7 @@ const Hero = () => {
             </motion.h1>
             
             <motion.p 
-              className="text-xl md:text-2xl text-gray-300 mb-6"
+              className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-4 sm:mb-6"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.9 }}
@@ -207,7 +205,7 @@ const Hero = () => {
             </motion.p>
             
             <motion.p 
-              className="text-gray-400 max-w-lg mb-8"
+              className="text-gray-400 max-w-lg mb-6 sm:mb-8 text-sm sm:text-base"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.1 }}
@@ -218,7 +216,7 @@ const Hero = () => {
             
             {/* Interactive Mode Selector */}
             <motion.div 
-              className="flex gap-4 mb-8 flex-wrap"
+              className="flex gap-2 sm:gap-4 mb-6 sm:mb-8 flex-wrap"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.3 }}
@@ -231,7 +229,7 @@ const Hero = () => {
                 <motion.button
                   key={index}
                   onClick={() => cycleMode(item.mode)}
-                  className={`px-4 py-3 rounded-lg flex items-center gap-2 transition-all ${
+                  className={`px-3 py-2 sm:px-4 sm:py-3 rounded-lg flex items-center gap-1 sm:gap-2 transition-all text-sm sm:text-base ${
                     interactiveMode === item.mode
                       ? "bg-orange-500 text-white" 
                       : "bg-gray-800 text-gray-300 hover:bg-gray-700"
@@ -243,7 +241,7 @@ const Hero = () => {
                   <span>{item.text}</span>
                   {interactiveMode === item.mode && (
                     <motion.span 
-                      className="w-1.5 h-1.5 rounded-full bg-white ml-1"
+                      className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-white ml-1"
                       layoutId="activeModeDot"
                     />
                   )}
@@ -253,14 +251,14 @@ const Hero = () => {
             
             {/* Call to action buttons */}
             <motion.div 
-              className="flex gap-4 mb-8"
+              className="flex gap-3 sm:gap-4 mb-6 sm:mb-8 flex-wrap"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.5 }}
             >
               <motion.a
                 href="#services"
-                className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-8 py-4 rounded-xl flex items-center gap-2"
+                className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-4 sm:px-8 py-3 sm:py-4 rounded-xl flex items-center gap-2 text-sm sm:text-base"
                 whileHover={{ 
                   scale: 1.05, 
                   boxShadow: "0 0 20px rgba(249, 115, 22, 0.4)" 
@@ -272,7 +270,7 @@ const Hero = () => {
               </motion.a>
               <motion.a
                 href="#parts"
-                className="bg-gray-800 text-orange-500 border border-orange-500 px-8 py-4 rounded-xl flex items-center gap-2"
+                className="bg-gray-800 text-orange-500 border border-orange-500 px-4 sm:px-8 py-3 sm:py-4 rounded-xl flex items-center gap-2 text-sm sm:text-base"
                 whileHover={{ 
                   scale: 1.05,
                   backgroundColor: "rgba(249, 115, 22, 0.1)"
@@ -287,14 +285,14 @@ const Hero = () => {
           
           {/* Right side - Interactive bicycle visualization */}
           <motion.div 
-            className="relative md:w-1/2 h-[500px] mt-8 md:mt-0 flex items-center justify-center"
+            className="relative md:w-1/2 h-[380px] md:h-[500px] mt-4 md:mt-0 flex items-center justify-center"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 1 }}
           >
             {/* Expert service badge */}
             <motion.div
-              className="absolute bottom-4 right-4 bg-gradient-to-br from-orange-500 to-orange-600 text-white p-4 rounded-xl shadow-xl z-10"
+              className="absolute bottom-0 right-0 md:bottom-4 md:right-4 bg-gradient-to-br from-orange-500 to-orange-600 text-white p-3 sm:p-4 rounded-xl shadow-xl z-10"
               initial={{ opacity: 0, scale: 0, rotate: -10 }}
               animate={{ opacity: 1, scale: 1, rotate: 0 }}
               transition={{ delay: 2, duration: 0.5, type: "spring" }}
@@ -304,12 +302,12 @@ const Hero = () => {
                 boxShadow: "0 10px 20px rgba(0,0,0,0.2)"
               }}
             >
-              <p className="font-bold">Expert Service</p>
-              <p className="text-sm">10+ Years Experience</p>
+              <p className="font-bold text-sm sm:text-base">Expert Service</p>
+              <p className="text-xs sm:text-sm">10+ Years Experience</p>
             </motion.div>
 
             {/* Bicycle Animation Component */}
-            <div className="relative w-full h-full flex items-center justify-center pt-8">
+            <div className="relative w-full h-full flex items-center justify-center pt-6 sm:pt-8">
               <BicycleAnimation 
                 ref={bicycleAnimationRef} 
                 interactiveMode={interactiveMode} 

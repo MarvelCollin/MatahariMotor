@@ -47,7 +47,6 @@ const Navbar = () => {
           <img src={logo} alt="Matahari Motor" className="h-12 md:h-14" />
         </motion.a>
 
-        {/* Desktop Menu */}
         <div className="hidden md:flex space-x-8">
           {menuItems.map((item, index) => (
             <motion.a
@@ -62,7 +61,6 @@ const Navbar = () => {
           ))}
         </div>
 
-        {/* Mobile Menu Button */}
         <div className="md:hidden">
           <button
             onClick={() => setIsOpen(!isOpen)}
@@ -73,7 +71,6 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
       {isOpen && (
         <motion.div
           initial={{ opacity: 0, height: 0 }}
