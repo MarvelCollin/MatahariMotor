@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, type ReactNode } from 'react';
 import rim from '../assets/products/rim-vnd.webp';
 import { shop } from '../data/shop';
 import { todayStatus } from '../lib/hours';
@@ -56,13 +56,24 @@ const Speedo = () => {
   );
 };
 
+const Fact = ({ label, children }: { label: string; children: ReactNode }) => (
+  <div className="border-t border-white/10 py-5 first:border-t-0 sm:border-t-0 sm:border-l sm:py-6 sm:pl-6 sm:first:border-l-0 sm:first:pl-0">
+    <dt className="flex items-center gap-2 text-[0.6875rem] font-medium tracking-[0.2em] text-white/45 uppercase">
+      <span className="h-px w-3 bg-sun" aria-hidden="true" />
+      {label}
+    </dt>
+    <dd className="mt-2 font-head text-base leading-snug font-semibold">{children}</dd>
+  </div>
+);
+
 const Hero = () => {
   const status = todayStatus();
+  const hoursLine = shop.hours.map((h) => `${h.day}, ${h.time}`).join(' · ');
 
   return (
-    <section id="top">
-      <div className="overflow-hidden bg-ink text-white">
-        <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 pt-12 pb-16 sm:px-6 md:grid-cols-[1.1fr_1fr] md:py-20">
+    <section id="top" className="bg-ink text-white">
+      <div className="overflow-hidden">
+        <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 pt-12 pb-14 sm:px-6 md:grid-cols-[1.1fr_1fr] md:pt-20 md:pb-16">
           <div>
             <h1 className="text-[clamp(2.6rem,7vw,4.75rem)] leading-[1.02] font-extrabold">
               Sparepart &amp; bengkel motor di <span className="text-sun">{shop.city}</span>
@@ -96,26 +107,17 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className="border-b border-line">
-        <dl className="mx-auto grid max-w-6xl gap-4 px-4 py-5 text-sm sm:grid-cols-3 sm:px-6">
-          <div>
-            <dt className="text-muted">Alamat</dt>
-            <dd className="font-medium">
-              {shop.address}, {shop.city}
-            </dd>
-          </div>
-          <div>
-            <dt className="text-muted">Jam buka</dt>
-            <dd className="font-medium">Setiap hari, 07.00 – 17.00</dd>
-          </div>
-          <div>
-            <dt className="text-muted">WhatsApp</dt>
-            <dd className="font-medium">
-              <a href={`tel:+${shop.whatsapp}`} className="hover:text-brand">
-                {shop.phoneDisplay}
-              </a>
-            </dd>
-          </div>
+      <div className="border-t border-white/10">
+        <dl className="mx-auto grid max-w-6xl px-4 sm:grid-cols-3 sm:px-6">
+          <Fact label="Alamat">
+            {shop.address}, {shop.city}
+          </Fact>
+          <Fact label="Jam buka">{hoursLine}</Fact>
+          <Fact label="WhatsApp">
+            <a href={`tel:+${shop.whatsapp}`} className="transition-colors hover:text-sun">
+              {shop.phoneDisplay}
+            </a>
+          </Fact>
         </dl>
       </div>
     </section>
