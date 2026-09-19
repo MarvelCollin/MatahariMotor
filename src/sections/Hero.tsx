@@ -27,14 +27,14 @@ const Hero = () => {
       <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-12 sm:px-6 md:grid-cols-2 md:py-20">
         <div>
           <h1 className="text-4xl leading-[1.08] font-extrabold sm:text-5xl lg:text-6xl">
-            Onderdil &amp; bengkel motor di {shop.city}
+            Sparepart &amp; bengkel motor di {shop.city}
           </h1>
           <p className="mt-5 max-w-md text-lg text-muted">
             Ban, velg, shock, stang, oli, dan lainnya. Beli di toko, bisa langsung dipasang.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a
-              href={waLink('Halo Matahari Motor, saya mau tanya stok onderdil.')}
+              href={waLink('Halo Matahari Motor, saya mau tanya stok sparepart.')}
               target="_blank"
               rel="noreferrer"
               className="rounded-md bg-merah px-5 py-3 font-medium text-white transition-colors hover:bg-merah-dark"
