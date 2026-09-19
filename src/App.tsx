@@ -3,7 +3,7 @@ import Hero from './sections/Hero';
 import Layanan from './sections/Layanan';
 import Katalog from './sections/Katalog';
 import Bengkel from './sections/Bengkel';
-import Contact from './sections/Contact';
+import Kontak from './sections/Kontak';
 import Footer from './components/Footer';
 
 function App() {
@@ -15,9 +15,7 @@ function App() {
         <Layanan />
         <Katalog />
         <Bengkel />
-        <div className="bg-black">
-          <Contact />
-        </div>
+        <Kontak />
       </main>
       <Footer />
     </>
