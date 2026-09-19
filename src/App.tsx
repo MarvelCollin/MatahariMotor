@@ -2,8 +2,7 @@ import Navbar from './components/Navbar';
 import Hero from './sections/Hero';
 import Layanan from './sections/Layanan';
 import Katalog from './sections/Katalog';
-import About from './sections/About';
-import Testimonials from './sections/Testimonials';
+import Bengkel from './sections/Bengkel';
 import Contact from './sections/Contact';
 import Footer from './components/Footer';
 
@@ -15,9 +14,8 @@ function App() {
         <Hero />
         <Layanan />
         <Katalog />
+        <Bengkel />
         <div className="bg-black">
-          <About />
-          <Testimonials />
           <Contact />
         </div>
       </main>
