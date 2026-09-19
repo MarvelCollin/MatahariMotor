@@ -1,5 +1,6 @@
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
+import WaBar from './components/WaBar';
 import Hero from './sections/Hero';
 import Lokasi from './sections/Lokasi';
 import Produk from './sections/Produk';
@@ -16,6 +17,7 @@ function App() {
         <Lokasi />
       </main>
       <Footer />
+      <WaBar />
     </>
   );
 }
