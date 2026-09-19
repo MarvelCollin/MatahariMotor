@@ -1,5 +1,5 @@
 import { shop } from '../data/shop';
-import { waLink } from '../lib/wa';
+import { mapsLink, waLink } from '../lib/wa';
 
 const Footer = () => (
   <footer className="bg-ink text-paper">
@@ -7,7 +7,7 @@ const Footer = () => (
       <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-4">
         <div className="md:col-span-2">
           <p className="max-w-sm text-paper/75">
-            Toko onderdil dan bengkel motor di {shop.city}. Matic, bebek, sport, trail.
+            Toko onderdil dan bengkel motor di jalur Lintas Melawi, {shop.city}. Matic, bebek, sport, trail.
           </p>
         </div>
         <nav aria-label="Footer">
@@ -36,16 +36,13 @@ const Footer = () => (
               </a>
             </li>
             <li>
-              <a
-                href={`https://instagram.com/${shop.instagram}`}
-                target="_blank"
-                rel="noreferrer"
-                className="hover:text-sun hover:underline"
-              >
-                Instagram @{shop.instagram}
+              <a href={mapsLink()} target="_blank" rel="noreferrer" className="hover:text-sun hover:underline">
+                Google Maps
               </a>
             </li>
-            <li className="text-paper/75">{shop.address}</li>
+            <li className="text-paper/75">
+              {shop.address}, {shop.city}
+            </li>
           </ul>
         </div>
       </div>

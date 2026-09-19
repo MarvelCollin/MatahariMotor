@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import velg from '../assets/products/velg-vnd.webp';
 import { categories, shop } from '../data/shop';
-import { waLink } from '../lib/wa';
+import { mapsLink, waLink } from '../lib/wa';
 
 const Sun = () => {
   const rim = useRef<HTMLImageElement>(null);
@@ -64,7 +64,7 @@ const Hero = () => (
     <div className="mx-auto grid max-w-7xl gap-12 px-4 pt-10 pb-14 sm:px-6 md:grid-cols-12 md:items-center md:pt-16 md:pb-20">
       <div className="md:col-span-7">
         <p className="font-mono text-sm text-ink-soft">
-          Toko onderdil &amp; bengkel motor · {shop.city}
+          Toko onderdil &amp; bengkel motor · Lintas Melawi, {shop.city}
         </p>
         <h1 className="mt-4 font-display text-[clamp(3.75rem,11vw,8.5rem)] font-black uppercase leading-[0.86] tracking-tight">
           Beli onderdil,
@@ -73,7 +73,7 @@ const Hero = () => (
         </h1>
         <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-soft">
           Ban, velg, shock, stang, sampai oli dan kampas rem. Pilih barangnya di etalase, mekanik kami yang pasang.
-          Untuk motor matic, bebek, dan sport.
+          Untuk motor harian, matic, dan trail yang sering lewat jalan rusak.
         </p>
         <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
           <a
@@ -88,6 +88,17 @@ const Hero = () => (
             Lihat katalog
           </a>
         </div>
+        <a
+          href={mapsLink()}
+          target="_blank"
+          rel="noreferrer"
+          className="mt-8 inline-flex items-center gap-2 font-mono text-sm text-ink-soft hover:text-ink"
+        >
+          <span className="text-merah" aria-hidden="true">
+            ★
+          </span>
+          {shop.rating} di Google Maps · {shop.phoneDisplay}
+        </a>
       </div>
       <div className="md:col-span-5">
         <Sun />

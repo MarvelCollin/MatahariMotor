@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from 'react';
 import { shop } from '../data/shop';
-import { mapsLink, waLink } from '../lib/wa';
+import { mapsEmbed, mapsLink, waLink } from '../lib/wa';
 
 const topics = ['Tanya stok & harga', 'Booking servis', 'Lainnya'];
 
@@ -56,7 +56,9 @@ const Kontak = () => {
               <dd className="mt-1 text-lg">
                 {shop.address}
                 <br />
-                {shop.city}
+                {shop.district}
+                <br />
+                {shop.region}
                 <br />
                 <a
                   href={mapsLink()}
@@ -94,6 +96,14 @@ const Kontak = () => {
               </dd>
             </div>
           </dl>
+
+          <iframe
+            title="Lokasi Matahari Motor di Google Maps"
+            src={mapsEmbed()}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            className="mt-10 aspect-[4/3] w-full border-2 border-ink bg-paper grayscale-[30%]"
+          />
         </div>
 
         <form
@@ -150,7 +160,7 @@ const Kontak = () => {
               id="f-pesan"
               name="pesan"
               rows={5}
-              placeholder="Contoh: Ada ban Corsa ring 14 untuk belakang? Bisa dipasang hari Sabtu?"
+              placeholder="Contoh: Ada ban Corsa ring 17 untuk belakang? Bisa dipasang hari Sabtu?"
               className={`${field} resize-y`}
               aria-invalid={!!errors.pesan}
               aria-describedby={errors.pesan ? 'err-pesan' : undefined}

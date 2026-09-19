@@ -26,8 +26,9 @@ const Bengkel = () => (
           <span className="text-merah">Matahari</span> Motor
         </h2>
         <p className="text-xl leading-relaxed md:col-span-7 md:pt-2">
-          Kami toko onderdil yang sekaligus punya bengkel. Kebanyakan pelanggan datang untuk beli satu barang, lalu
-          sekalian minta dipasang. Dari situ bengkelnya tumbuh: servis rutin, CVT, suspensi, sampai kelistrikan.
+          Toko onderdil yang sekaligus punya bengkel, di Jalan Lintas Melawi, Ladang, Sintang. Banyak pelanggan datang
+          untuk beli satu barang lalu minta sekalian dipasang. Dari situ bengkelnya tumbuh: servis rutin, CVT, suspensi,
+          sampai kelistrikan.
         </p>
       </div>
 

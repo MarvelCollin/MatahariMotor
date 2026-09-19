@@ -1,14 +1,16 @@
 export const shop = {
   name: 'Matahari Motor',
-  whatsapp: '6281234567890',
-  phoneDisplay: '0812 3456 7890',
-  address: 'Jl. Raya Matahari No. 123',
-  city: 'Jakarta',
-  instagram: 'mataharimotor',
+  whatsapp: '6282111750238',
+  phoneDisplay: '0821-1175-0238',
+  address: 'Jl. Lintas Melawi, Kel. Ladang',
+  district: 'Kec. Sintang, Kab. Sintang',
+  region: 'Kalimantan Barat 78613',
+  city: 'Sintang',
+  mapsQuery: 'Matahari Motor, Jl. Lintas Melawi, Ladang, Sintang, Kalimantan Barat',
+  rating: '4,2',
   hours: [
-    { day: 'Senin – Jumat', time: '08.00 – 17.00' },
-    { day: 'Sabtu', time: '08.00 – 15.00' },
-    { day: 'Minggu', time: 'Tutup' },
+    { day: 'Senin – Sabtu', time: 'tutup 17.00' },
+    { day: 'Minggu', time: 'tanya via WA' },
   ],
 };
 
