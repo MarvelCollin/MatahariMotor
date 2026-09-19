@@ -1,10 +1,9 @@
+import Footer from './components/Footer';
 import Navbar from './components/Navbar';
 import Hero from './sections/Hero';
-import Layanan from './sections/Layanan';
-import Katalog from './sections/Katalog';
-import Bengkel from './sections/Bengkel';
-import Kontak from './sections/Kontak';
-import Footer from './components/Footer';
+import Lokasi from './sections/Lokasi';
+import Produk from './sections/Produk';
+import Servis from './sections/Servis';
 
 function App() {
   return (
@@ -12,10 +11,9 @@ function App() {
       <Navbar />
       <main>
         <Hero />
-        <Layanan />
-        <Katalog />
-        <Bengkel />
-        <Kontak />
+        <Produk />
+        <Servis />
+        <Lokasi />
       </main>
       <Footer />
     </>

@@ -1,65 +1,47 @@
 @import "tailwindcss";
-@import "@fontsource-variable/big-shoulders-display";
+@import "@fontsource-variable/archivo/wdth.css";
 @import "@fontsource-variable/schibsted-grotesk";
-@import "@fontsource/ibm-plex-mono/400.css";
-@import "@fontsource/ibm-plex-mono/500.css";
 
 @theme {
-  --color-paper: #f1ece2;
-  --color-paper-deep: #e4dccb;
-  --color-ink: #17140f;
-  --color-ink-soft: #4d463b;
-  --color-sun: #eca81c;
+  --color-ink: #141414;
+  --color-muted: #5f5f5f;
+  --color-line: #e3e3e3;
+  --color-tile: #f3f3f2;
   --color-merah: #c62a1f;
-  --font-display: "Big Shoulders Display Variable", "Arial Narrow", sans-serif;
+  --color-merah-dark: #a32118;
+  --font-head: "Archivo Variable", system-ui, sans-serif;
   --font-sans: "Schibsted Grotesk Variable", system-ui, sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 5rem;
+    scroll-padding-top: 4.5rem;
   }
 
   body {
-    background: var(--color-paper);
+    background: #fff;
     color: var(--color-ink);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
   }
 
-  ::selection {
-    background: var(--color-sun);
-    color: var(--color-ink);
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-head);
+    font-stretch: 112%;
+    letter-spacing: -0.01em;
   }
 
   :focus-visible {
     outline: 2px solid var(--color-merah);
-    outline-offset: 3px;
+    outline-offset: 2px;
   }
-}
-
-@utility rule {
-  border-color: color-mix(in oklab, var(--color-ink) 85%, transparent);
-}
-
-@keyframes marquee {
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-.marquee {
-  animation: marquee 40s linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-  }
-
-  .marquee {
-    animation: none;
   }
 }

@@ -3,35 +3,31 @@ import logo from '../assets/logo.webp';
 import { waLink } from '../lib/wa';
 
 const links = [
-  { label: 'Layanan', href: '#layanan' },
-  { label: 'Katalog', href: '#katalog' },
-  { label: 'Bengkel', href: '#bengkel' },
-  { label: 'Kontak', href: '#kontak' },
+  { label: 'Produk', href: '#produk' },
+  { label: 'Servis', href: '#servis' },
+  { label: 'Lokasi', href: '#lokasi' },
 ];
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    document.body.style.overflow = open ? 'hidden' : '';
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false);
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [open]);
+  }, []);
 
   return (
-    <header className="sticky top-0 z-50 border-b-2 border-ink bg-paper">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6">
-        <a href="#top" className="flex items-center gap-3" aria-label="Matahari Motor, ke atas">
-          <img src={logo} alt="" width={40} height={40} className="h-10 w-10" />
-          <span className="font-display text-2xl font-extrabold uppercase leading-none tracking-tight">
-            Matahari<span className="text-merah"> Motor</span>
-          </span>
+    <header className="sticky top-0 z-50 bg-ink text-white">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
+        <a href="#top" className="flex items-center gap-2.5">
+          <img src={logo} alt="" width={36} height={36} className="h-9 w-9" />
+          <span className="font-head text-lg font-bold [font-stretch:112%]">Matahari Motor</span>
         </a>
 
-        <nav className="hidden items-center gap-8 md:flex" aria-label="Utama">
+        <nav className="hidden items-center gap-7 md:flex" aria-label="Utama">
           {links.map((l) => (
-            <a key={l.href} href={l.href} className="font-medium decoration-2 underline-offset-4 hover:underline">
+            <a key={l.href} href={l.href} className="text-white/80 transition-colors hover:text-white">
               {l.label}
             </a>
           ))}
@@ -39,7 +35,7 @@ const Navbar = () => {
             href={waLink('Halo Matahari Motor, saya mau tanya.')}
             target="_blank"
             rel="noreferrer"
-            className="bg-ink px-4 py-2 font-medium text-paper transition-colors hover:bg-merah"
+            className="rounded-md bg-merah px-4 py-2 font-medium transition-colors hover:bg-merah-dark"
           >
             Chat WhatsApp
           </a>
@@ -47,41 +43,28 @@ const Navbar = () => {
 
         <button
           type="button"
-          className="flex h-11 w-11 flex-col items-center justify-center gap-1.5 md:hidden"
+          className="rounded-md px-3 py-2 text-sm font-medium ring-1 ring-white/30 md:hidden"
           aria-expanded={open}
           aria-controls="menu-mobile"
-          aria-label={open ? 'Tutup menu' : 'Buka menu'}
           onClick={() => setOpen(!open)}
         >
-          <span className={`h-0.5 w-6 bg-ink transition-transform ${open ? 'translate-y-2 rotate-45' : ''}`} />
-          <span className={`h-0.5 w-6 bg-ink transition-opacity ${open ? 'opacity-0' : ''}`} />
-          <span className={`h-0.5 w-6 bg-ink transition-transform ${open ? '-translate-y-2 -rotate-45' : ''}`} />
+          {open ? 'Tutup' : 'Menu'}
         </button>
       </div>
 
       {open && (
-        <div id="menu-mobile" className="fixed inset-x-0 top-16 bottom-0 bg-paper md:hidden">
-          <nav className="flex flex-col px-4 pt-4" aria-label="Menu mobile">
-            {links.map((l) => (
-              <a
-                key={l.href}
-                href={l.href}
-                onClick={() => setOpen(false)}
-                className="border-b border-ink/20 py-4 font-display text-4xl font-bold uppercase"
-              >
-                {l.label}
-              </a>
-            ))}
+        <nav id="menu-mobile" className="border-t border-white/15 px-4 pb-4 md:hidden" aria-label="Menu mobile">
+          {links.map((l) => (
             <a
-              href={waLink('Halo Matahari Motor, saya mau tanya.')}
-              target="_blank"
-              rel="noreferrer"
-              className="mt-6 bg-ink py-4 text-center font-medium text-paper"
+              key={l.href}
+              href={l.href}
+              onClick={() => setOpen(false)}
+              className="block border-b border-white/10 py-3.5 text-lg"
             >
-              Chat WhatsApp
+              {l.label}
             </a>
-          </nav>
-        </div>
+          ))}
+        </nav>
       )}
     </header>
   );

@@ -12,5 +12,3 @@ export const shop = {
     { day: 'Minggu', time: 'tanya via WA' },
   ],
 };
-
-export const categories = ['Ban', 'Velg', 'Shock', 'Stang', 'Rantai & gir', 'Kampas rem', 'Oli', 'Aki', 'Busi', 'Lampu'];
