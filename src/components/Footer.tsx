@@ -5,11 +5,7 @@ const Footer = () => (
   <footer className="bg-ink text-paper">
     <div className="mx-auto max-w-7xl px-4 pt-14 pb-8 sm:px-6">
       <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-4">
-        <div className="md:col-span-2">
-          <p className="max-w-sm text-paper/75">
-            Toko onderdil dan bengkel motor di jalur Lintas Melawi, {shop.city}. Matic, bebek, sport, trail.
-          </p>
-        </div>
+        <p className="max-w-xs text-paper/75 md:col-span-2">Onderdil &amp; bengkel motor, {shop.city}.</p>
         <nav aria-label="Footer">
           <p className="font-mono text-sm text-sun">Halaman</p>
           <ul className="mt-3 space-y-2">
@@ -49,7 +45,7 @@ const Footer = () => (
 
       <p
         aria-hidden="true"
-        className="mt-14 font-display text-[clamp(3rem,15.5vw,13.5rem)] font-black uppercase leading-[0.8] tracking-tight whitespace-nowrap"
+        className="mt-14 font-display text-[clamp(2rem,13.5vw,12.5rem)] font-black uppercase leading-[0.8] tracking-tight whitespace-nowrap"
       >
         Matahari <span className="text-merah">Motor</span>
       </p>

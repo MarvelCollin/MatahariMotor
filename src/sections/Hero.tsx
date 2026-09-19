@@ -72,8 +72,7 @@ const Hero = () => (
           <span className="text-merah">pasang</span> di tempat.
         </h1>
         <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-soft">
-          Ban, velg, shock, stang, sampai oli dan kampas rem. Pilih barangnya di etalase, mekanik kami yang pasang.
-          Untuk motor harian, matic, dan trail yang sering lewat jalan rusak.
+          Ban, velg, shock, stang, oli. Pilih di etalase, mekanik kami yang pasang.
         </p>
         <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
           <a
@@ -94,10 +93,8 @@ const Hero = () => (
           rel="noreferrer"
           className="mt-8 inline-flex items-center gap-2 font-mono text-sm text-ink-soft hover:text-ink"
         >
-          <span className="text-merah" aria-hidden="true">
-            ★
-          </span>
-          {shop.rating} di Google Maps · {shop.phoneDisplay}
+          <span className="h-2.5 w-2.5 rounded-full bg-merah" aria-hidden="true" />
+          Jl. Lintas Melawi, {shop.city} · {shop.phoneDisplay}
         </a>
       </div>
       <div className="md:col-span-5">

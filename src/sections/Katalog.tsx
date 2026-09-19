@@ -1,6 +1,5 @@
 import { useRef, useState } from 'react';
 import { products } from '../data/products';
-import { categories } from '../data/shop';
 import { waLink } from '../lib/wa';
 
 const grid = {
@@ -31,9 +30,7 @@ const Katalog = () => {
             <br />
             etalase
           </h2>
-          <p className="max-w-sm text-ink-soft">
-            Sebagian barang yang sering dicari. Harga mengikuti ukuran dan tipe motor, jadi tanya dulu lewat WhatsApp.
-          </p>
+          <p className="max-w-xs text-ink-soft">Harga menyesuaikan ukuran dan tipe motor.</p>
         </div>
 
         <div className="mt-12 grid border-2 border-ink bg-paper lg:grid-cols-12">
@@ -91,7 +88,6 @@ const Katalog = () => {
             </div>
             <div className="flex flex-col p-6 sm:p-8">
               <h3 className="font-display text-4xl font-extrabold uppercase leading-none">{active.name}</h3>
-              <p className="mt-4 leading-relaxed text-ink-soft">{active.summary}</p>
               <dl className="mt-6 border-t border-ink/25">
                 {active.specs.map(([k, v]) => (
                   <div key={k} className="flex justify-between gap-4 border-b border-ink/25 py-2.5 text-sm">
@@ -111,13 +107,6 @@ const Katalog = () => {
             </div>
           </div>
         </div>
-
-        <p className="mt-8 max-w-3xl leading-relaxed">
-          <span className="font-medium">Juga tersedia:</span>{' '}
-          <span className="text-ink-soft">
-            {categories.slice(4).join(', ').toLowerCase()}. Kalau barangnya tidak ada di daftar, tetap tanyakan saja.
-          </span>
-        </p>
       </div>
     </section>
   );

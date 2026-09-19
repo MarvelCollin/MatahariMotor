@@ -12,9 +12,7 @@ const Layanan = () => (
             <br />
             bengkel kami
           </h2>
-          <p className="mt-5 max-w-md text-lg leading-relaxed text-ink-soft">
-            Datang langsung atau booking dulu lewat WhatsApp supaya tidak antre. Biaya jasa kami sebutkan sebelum motor dikerjakan.
-          </p>
+          <p className="mt-5 max-w-md text-lg text-ink-soft">Datang langsung atau booking via WhatsApp.</p>
           <figure className="mt-8 hidden md:block">
             <img
               src={rantai}
@@ -42,7 +40,6 @@ const Layanan = () => (
                   Booking
                 </a>
               </div>
-              <p className="mt-2 text-ink-soft">{s.note}</p>
               <ul className="mt-4 flex flex-wrap gap-2">
                 {s.items.map((it) => (
                   <li key={it} className="border border-ink/40 px-2.5 py-1 text-sm">

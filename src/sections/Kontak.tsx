@@ -46,9 +46,6 @@ const Kontak = () => {
             <br />
             atau chat
           </h2>
-          <p className="mt-5 max-w-md text-lg leading-relaxed">
-            Isi formulir ini, pesannya langsung terbuka di WhatsApp. Kami balas di jam buka toko.
-          </p>
 
           <dl className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-1">
             <div>

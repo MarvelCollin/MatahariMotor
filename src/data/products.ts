@@ -11,7 +11,6 @@ export type Product = {
   image: string;
   width: number;
   height: number;
-  summary: string;
   specs: [string, string][];
 };
 
@@ -24,7 +23,6 @@ export const products: Product[] = [
     image: ban,
     width: 284,
     height: 467,
-    summary: 'Ban tubeless pola sport untuk matic dan motor sport. Dipasang sekalian dengan pentil baru.',
     specs: [
       ['Jenis', 'Tubeless'],
       ['Ring', '14 & 17'],
@@ -39,7 +37,6 @@ export const products: Product[] = [
     image: shock,
     width: 138,
     height: 489,
-    summary: 'Shock depan upside down lengkap dengan segitiga. Kecocokan dengan motor Anda kami cek dulu sebelum dipasang.',
     specs: [
       ['Jenis', 'Upside down'],
       ['Warna', 'Gold'],
@@ -54,7 +51,6 @@ export const products: Product[] = [
     image: stang,
     width: 464,
     height: 76,
-    summary: 'Stang fat bar diameter besar dengan busa pelindung. Umum dipakai di motor trail dan supermoto.',
     specs: [
       ['Diameter', '28,6 mm'],
       ['Bahan', 'Aluminium'],
@@ -69,7 +65,6 @@ export const products: Product[] = [
     image: velg,
     width: 277,
     height: 278,
-    summary: 'Velg racing lima palang warna hitam. Sebutkan ukuran dan tipe motor, kami cek stoknya.',
     specs: [
       ['Model', '5 palang'],
       ['Warna', 'Hitam'],
