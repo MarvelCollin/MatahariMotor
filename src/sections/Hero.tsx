@@ -64,7 +64,7 @@ const Hero = () => (
     <div className="mx-auto grid max-w-7xl gap-12 px-4 pt-10 pb-14 sm:px-6 md:grid-cols-12 md:items-center md:pt-16 md:pb-20">
       <div className="md:col-span-7">
         <p className="font-mono text-sm text-ink-soft">
-          Toko onderdil &amp; bengkel motor · Lintas Melawi, {shop.city}
+          Onderdil &amp; bengkel motor · {shop.city}
         </p>
         <h1 className="mt-4 font-display text-[clamp(3.75rem,11vw,8.5rem)] font-black uppercase leading-[0.86] tracking-tight">
           Beli onderdil,
@@ -91,10 +91,12 @@ const Hero = () => (
           href={mapsLink()}
           target="_blank"
           rel="noreferrer"
-          className="mt-8 inline-flex items-center gap-2 font-mono text-sm text-ink-soft hover:text-ink"
+          className="mt-8 inline-flex items-baseline gap-2 font-mono text-sm text-ink-soft hover:text-ink"
         >
           <span className="h-2.5 w-2.5 rounded-full bg-merah" aria-hidden="true" />
-          Jl. Lintas Melawi, {shop.city} · {shop.phoneDisplay}
+          <span>
+            Jl. Lintas Melawi, {shop.city} · <span className="whitespace-nowrap">{shop.phoneDisplay}</span>
+          </span>
         </a>
       </div>
       <div className="md:col-span-5">

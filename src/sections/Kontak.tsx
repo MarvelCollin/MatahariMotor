@@ -106,7 +106,7 @@ const Kontak = () => {
         <form
           noValidate
           onSubmit={submit}
-          className="border-2 border-ink bg-paper p-5 shadow-[8px_8px_0_var(--color-ink)] sm:p-8 lg:col-span-7"
+          className="border-2 border-ink bg-paper p-5 shadow-[8px_8px_0_var(--color-ink)] sm:p-8 lg:col-span-7 lg:self-start"
         >
           <div className="grid gap-5 sm:grid-cols-2">
             <div>

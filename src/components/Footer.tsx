@@ -8,7 +8,7 @@ const Footer = () => (
         <p className="max-w-xs text-paper/75 md:col-span-2">Onderdil &amp; bengkel motor, {shop.city}.</p>
         <nav aria-label="Footer">
           <p className="font-mono text-sm text-sun">Halaman</p>
-          <ul className="mt-3 space-y-2">
+          <ul className="mt-3 space-y-1">
             {[
               ['Layanan', '#layanan'],
               ['Katalog', '#katalog'],
@@ -16,7 +16,7 @@ const Footer = () => (
               ['Kontak', '#kontak'],
             ].map(([label, href]) => (
               <li key={href}>
-                <a href={href} className="hover:text-sun hover:underline">
+                <a href={href} className="inline-block py-1 hover:text-sun hover:underline">
                   {label}
                 </a>
               </li>
@@ -25,14 +25,14 @@ const Footer = () => (
         </nav>
         <div>
           <p className="font-mono text-sm text-sun">Hubungi</p>
-          <ul className="mt-3 space-y-2">
+          <ul className="mt-3 space-y-1">
             <li>
-              <a href={waLink('Halo Matahari Motor, saya mau tanya.')} target="_blank" rel="noreferrer" className="hover:text-sun hover:underline">
+              <a href={waLink('Halo Matahari Motor, saya mau tanya.')} target="_blank" rel="noreferrer" className="inline-block py-1 hover:text-sun hover:underline">
                 WhatsApp {shop.phoneDisplay}
               </a>
             </li>
             <li>
-              <a href={mapsLink()} target="_blank" rel="noreferrer" className="hover:text-sun hover:underline">
+              <a href={mapsLink()} target="_blank" rel="noreferrer" className="inline-block py-1 hover:text-sun hover:underline">
                 Google Maps
               </a>
             </li>
