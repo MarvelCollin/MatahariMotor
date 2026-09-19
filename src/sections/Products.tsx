@@ -4,7 +4,7 @@ import { waLink } from '../lib/wa';
 const Products = () => (
   <section id="products" className="mx-auto max-w-6xl px-4 py-16 sm:px-6 md:py-20">
     <div className="flex flex-wrap items-baseline justify-between gap-3">
-      <h2 className="text-3xl font-extrabold sm:text-4xl">Products di toko</h2>
+      <h2 className="text-3xl font-extrabold sm:text-4xl">Produk di toko</h2>
       <p className="text-muted">Harga sesuai ukuran &amp; tipe motor.</p>
     </div>
 

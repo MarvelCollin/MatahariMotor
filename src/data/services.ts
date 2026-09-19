@@ -1,10 +1,10 @@
 export const services = [
   {
-    name: 'Services rutin',
+    name: 'Servis rutin',
     items: ['Ganti oli mesin', 'Cek & setel rem', 'Setel rantai', 'Bersihkan busi & filter udara'],
   },
   {
-    name: 'Services CVT matic',
+    name: 'Servis CVT matic',
     items: ['Bersihkan ruang CVT', 'Ganti V-belt', 'Ganti roller & kampas ganda', 'Oli gardan'],
   },
   {

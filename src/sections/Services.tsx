@@ -5,7 +5,7 @@ const Services = () => (
   <section id="services" className="bg-tile">
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 md:py-20">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
-        <h2 className="text-3xl font-extrabold sm:text-4xl">Services</h2>
+        <h2 className="text-3xl font-extrabold sm:text-4xl">Servis</h2>
         <a
           href={waLink('Halo Matahari Motor, saya mau booking servis.')}
           target="_blank"

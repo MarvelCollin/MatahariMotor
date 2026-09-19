@@ -3,9 +3,9 @@ import logo from '../assets/logo.webp';
 import { waLink } from '../lib/wa';
 
 const links = [
-  { label: 'Products', href: '#products' },
-  { label: 'Services', href: '#services' },
-  { label: 'Location', href: '#location' },
+  { label: 'Produk', href: '#products' },
+  { label: 'Servis', href: '#services' },
+  { label: 'Lokasi', href: '#location' },
 ];
 
 const Navbar = () => {

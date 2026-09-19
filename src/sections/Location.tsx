@@ -5,7 +5,7 @@ const Location = () => (
   <section id="location" className="mx-auto max-w-6xl px-4 py-16 sm:px-6 md:py-20">
     <div className="grid gap-10 md:grid-cols-5">
       <div className="md:col-span-2">
-        <h2 className="text-3xl font-extrabold sm:text-4xl">Location</h2>
+        <h2 className="text-3xl font-extrabold sm:text-4xl">Lokasi</h2>
         <address className="mt-6 text-lg not-italic">
           {shop.address}
           <br />
