@@ -46,7 +46,7 @@ const Navbar = () => {
               key={l.href}
               href={l.href}
               aria-current={active === l.href ? 'true' : undefined}
-              className="text-white/70 decoration-brand decoration-2 underline-offset-8 transition-colors hover:text-white aria-[current=true]:text-white aria-[current=true]:underline"
+              className="relative text-white/70 transition-colors after:absolute after:-bottom-1.5 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-brand after:transition-transform after:duration-300 after:ease-[cubic-bezier(0.22,1,0.36,1)] after:content-[''] hover:text-white motion-reduce:after:transition-none aria-[current=true]:text-white aria-[current=true]:after:scale-x-100"
             >
               {l.label}
             </a>
@@ -72,20 +72,27 @@ const Navbar = () => {
         </button>
       </div>
 
-      {open && (
-        <nav id="mobile-menu" className="border-t border-white/15 px-4 pb-4 md:hidden" aria-label="Menu mobile">
-          {links.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              onClick={() => setOpen(false)}
-              className="block border-b border-white/10 py-3.5 text-lg"
-            >
-              {l.label}
-            </a>
-          ))}
+      <div
+        className={`grid overflow-hidden transition-[grid-template-rows] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none md:hidden ${
+          open ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
+        }`}
+      >
+        <nav id="mobile-menu" className="min-h-0 overflow-hidden" aria-label="Menu mobile">
+          <div className="border-t border-white/15 px-4 pb-4">
+            {links.map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                tabIndex={open ? undefined : -1}
+                onClick={() => setOpen(false)}
+                className="block border-b border-white/10 py-3.5 text-lg last:border-b-0"
+              >
+                {l.label}
+              </a>
+            ))}
+          </div>
         </nav>
-      )}
+      </div>
     </header>
   );
 };

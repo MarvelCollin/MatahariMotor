@@ -3,6 +3,7 @@ import Eyebrow from '../components/Eyebrow';
 import rim from '../assets/products/rim-vnd.webp';
 import { shop } from '../data/shop';
 import { hoursLine, todayStatus } from '../lib/hours';
+import { revealClass, useMounted, zoomClass } from '../lib/useInView';
 import { waLink } from '../lib/wa';
 
 const Speedo = () => {
@@ -57,8 +58,13 @@ const Speedo = () => {
   );
 };
 
-const Fact = ({ label, children }: { label: string; children: ReactNode }) => (
-  <div className="border-t border-white/10 py-5 first:border-t-0 sm:border-t-0 sm:border-l sm:py-6 sm:pl-6 sm:first:border-l-0 sm:first:pl-0">
+type FactProps = { label: string; visible: boolean; delay: number; children: ReactNode };
+
+const Fact = ({ label, visible, delay, children }: FactProps) => (
+  <div
+    style={{ transitionDelay: `${delay}ms` }}
+    className={`border-t border-white/10 py-5 first:border-t-0 sm:border-t-0 sm:border-l sm:py-6 sm:pl-6 sm:first:border-l-0 sm:first:pl-0 ${revealClass(visible, true)}`}
+  >
     <Eyebrow as="dt" tone="dark">
       {label}
     </Eyebrow>
@@ -68,19 +74,24 @@ const Fact = ({ label, children }: { label: string; children: ReactNode }) => (
 
 const Hero = () => {
   const status = todayStatus();
+  const mounted = useMounted();
+  const step = (i: number) => ({ transitionDelay: `${i * 90}ms` });
 
   return (
     <section id="top" className="bg-ink text-white">
       <div className="overflow-hidden">
         <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 pt-12 pb-14 sm:px-6 md:grid-cols-[1.1fr_1fr] md:pt-20 md:pb-16">
           <div>
-            <h1 className="text-[clamp(2.6rem,7vw,4.75rem)] leading-[1.02] font-extrabold">
+            <h1
+              style={step(0)}
+              className={`text-[clamp(2.6rem,7vw,4.75rem)] leading-[1.02] font-extrabold ${revealClass(mounted)}`}
+            >
               Sparepart &amp; bengkel motor di <span className="text-sun">{shop.city}</span>
             </h1>
-            <p className="mt-6 max-w-md text-lg text-white/70">
+            <p style={step(1)} className={`mt-6 max-w-md text-lg text-white/70 ${revealClass(mounted)}`}>
               Ban, velg, shock, stang, oli, dan lainnya. Beli di toko, bisa langsung dipasang.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div style={step(2)} className={`mt-8 flex flex-wrap gap-3 ${revealClass(mounted)}`}>
               <a
                 href={waLink('Halo Matahari Motor, saya mau tanya stok sparepart.')}
                 target="_blank"
@@ -96,23 +107,34 @@ const Hero = () => {
                 Lihat produk
               </a>
             </div>
-            <p className="mt-7 flex items-center gap-2 text-sm text-white/80">
-              <span className={`h-2 w-2 rounded-full ${status.open ? 'bg-green-500' : 'bg-white/40'}`} aria-hidden="true" />
-              {status.text}
-            </p>
+            <div style={step(3)} className={`mt-7 ${revealClass(mounted)}`}>
+              <p className="inline-flex items-center gap-2.5 rounded-full py-1.5 pr-4 pl-3 text-sm text-white/80 ring-1 ring-white/15">
+                <span className="relative flex h-2 w-2" aria-hidden="true">
+                  {status.open && (
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-60 motion-reduce:hidden" />
+                  )}
+                  <span className={`relative h-2 w-2 rounded-full ${status.open ? 'bg-green-400' : 'bg-white/40'}`} />
+                </span>
+                {status.text}
+              </p>
+            </div>
           </div>
 
-          <Speedo />
+          <div style={step(1)} className={zoomClass(mounted)}>
+            <Speedo />
+          </div>
         </div>
       </div>
 
       <div className="border-t border-white/10">
         <dl className="mx-auto grid max-w-6xl px-4 sm:grid-cols-3 sm:px-6">
-          <Fact label="Alamat">
+          <Fact label="Alamat" visible={mounted} delay={420}>
             {shop.address}, {shop.city}
           </Fact>
-          <Fact label="Jam buka">{hoursLine}</Fact>
-          <Fact label="WhatsApp">
+          <Fact label="Jam buka" visible={mounted} delay={500}>
+            {hoursLine}
+          </Fact>
+          <Fact label="WhatsApp" visible={mounted} delay={580}>
             <a href={`tel:+${shop.whatsapp}`} className="transition-colors hover:text-sun">
               {shop.phoneDisplay}
             </a>
