@@ -1,44 +1,43 @@
-import Eyebrow from '../components/Eyebrow';
+import SectionIntro from '../components/SectionIntro';
 import { services } from '../data/services';
 import { waLink } from '../lib/wa';
 
 const Services = () => (
-  <section id="services" className="bg-tile">
-    <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 md:py-20">
-      <header className="flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
-        <div>
-          <Eyebrow>Bengkel</Eyebrow>
-          <h2 className="mt-3 text-3xl font-extrabold sm:text-4xl">Servis</h2>
-        </div>
-        <a
-          href={waLink('Halo Matahari Motor, saya mau booking servis.')}
-          target="_blank"
-          rel="noreferrer"
-          className="group inline-flex items-center gap-1.5 font-medium text-brand hover:underline"
-        >
-          Booking via WhatsApp
-          <span
-            aria-hidden="true"
-            className="transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0"
+  <section id="services" className="bg-ink text-white">
+    <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 md:py-28">
+      <div className="grid items-start gap-12 md:grid-cols-[minmax(0,1fr)_2fr] md:gap-16">
+        <SectionIntro eyebrow="Bengkel" title="Servis" tone="dark">
+          <p className="mt-5 text-lg text-white/60">Semua servis dikerjakan di toko, sparepart-nya tinggal ambil dari rak.</p>
+          <a
+            href={waLink('Halo Matahari Motor, saya mau booking servis.')}
+            target="_blank"
+            rel="noreferrer"
+            className="group mt-8 inline-flex items-center gap-2 rounded-md bg-brand px-5 py-3 font-medium transition-colors hover:bg-brand-dark"
           >
-            →
-          </span>
-        </a>
-      </header>
-
-      <dl className="mt-10 grid gap-x-12 sm:grid-cols-2">
-        {services.map((s, i) => (
-          <div key={s.name} className="flex gap-4 border-t border-ink/15 py-5">
-            <span className="mt-1.5 font-head text-xs font-bold text-ink/30 tabular-nums">
-              {String(i + 1).padStart(2, '0')}
+            Booking via WhatsApp
+            <span
+              aria-hidden="true"
+              className="transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0"
+            >
+              →
             </span>
-            <div>
-              <dt className="font-head text-lg leading-snug font-bold">{s.name}</dt>
-              <dd className="mt-1.5 text-muted">{s.items.join(' · ')}</dd>
+          </a>
+        </SectionIntro>
+
+        <dl>
+          {services.map((s, i) => (
+            <div key={s.name} className="flex gap-5 border-t border-white/10 py-5 last:border-b">
+              <span className="mt-1.5 font-head text-xs font-bold text-sun tabular-nums">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <div>
+                <dt className="font-head text-lg leading-snug font-bold sm:text-xl">{s.name}</dt>
+                <dd className="mt-1.5 text-white/60">{s.items.join(' · ')}</dd>
+              </div>
             </div>
-          </div>
-        ))}
-      </dl>
+          ))}
+        </dl>
+      </div>
     </div>
   </section>
 );

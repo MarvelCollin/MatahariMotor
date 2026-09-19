@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import Eyebrow from '../components/Eyebrow';
+import SectionIntro from '../components/SectionIntro';
 import { shop } from '../data/shop';
 import { hoursLine } from '../lib/hours';
 import { mapsEmbed, mapsLink, waLink } from '../lib/wa';
@@ -12,15 +13,10 @@ const Row = ({ label, children }: { label: string; children: ReactNode }) => (
 );
 
 const Location = () => (
-  <section id="location" className="mx-auto max-w-6xl px-4 py-16 sm:px-6 md:py-20">
-    <header>
-      <Eyebrow>Kunjungi</Eyebrow>
-      <h2 className="mt-3 text-3xl font-extrabold sm:text-4xl">Lokasi</h2>
-    </header>
-
-    <div className="mt-10 grid gap-10 md:grid-cols-5">
-      <div className="md:col-span-2">
-        <dl className="border-t border-line">
+  <section id="location" className="mx-auto max-w-6xl px-4 py-20 sm:px-6 md:py-28">
+    <div className="grid items-start gap-12 md:grid-cols-[minmax(0,1fr)_2fr] md:gap-16">
+      <SectionIntro eyebrow="Kunjungi" title="Lokasi">
+        <dl className="mt-8 border-t border-line">
           <Row label="Alamat">
             <address className="not-italic">
               {shop.address}
@@ -45,7 +41,7 @@ const Location = () => (
             rel="noreferrer"
             className="rounded-md bg-brand px-5 py-3 font-medium text-white transition-colors hover:bg-brand-dark"
           >
-            WhatsApp {shop.phoneDisplay}
+            Chat WhatsApp
           </a>
           <a
             href={mapsLink()}
@@ -56,14 +52,14 @@ const Location = () => (
             Petunjuk arah
           </a>
         </div>
-      </div>
+      </SectionIntro>
 
       <iframe
         title="Peta lokasi Matahari Motor"
         src={mapsEmbed()}
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
-        className="aspect-[4/3] w-full rounded-xl bg-tile ring-1 ring-ink/5 md:col-span-3 md:aspect-auto md:min-h-96"
+        className="aspect-[4/3] w-full rounded-xl bg-tile ring-1 ring-ink/5 md:aspect-auto md:min-h-[34rem]"
       />
     </div>
   </section>
