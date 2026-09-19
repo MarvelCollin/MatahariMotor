@@ -106,7 +106,7 @@ const Hero = () => {
           </div>
           <div>
             <dt className="text-muted">Jam buka</dt>
-            <dd className="font-medium">Senin – Sabtu, 08.00 – 17.00</dd>
+            <dd className="font-medium">Setiap hari, 07.00 – 17.00</dd>
           </div>
           <div>
             <dt className="text-muted">WhatsApp</dt>
