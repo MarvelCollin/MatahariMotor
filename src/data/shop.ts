@@ -8,7 +8,7 @@ export const shop = {
   city: 'Sintang',
   mapsQuery: 'Matahari Motor, Jl. Lintas Melawi, Ladang, Sintang, Kalimantan Barat',
   hours: [
-    { day: 'Senin – Sabtu', time: 'tutup 17.00' },
-    { day: 'Minggu', time: 'tanya via WA' },
+    { day: 'Senin – Sabtu', time: '08.00 – 17.00' },
+    { day: 'Minggu', time: 'Tutup' },
   ],
 };
