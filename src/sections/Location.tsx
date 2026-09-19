@@ -1,11 +1,11 @@
 import { shop } from '../data/shop';
 import { mapsEmbed, mapsLink, waLink } from '../lib/wa';
 
-const Lokasi = () => (
-  <section id="lokasi" className="mx-auto max-w-6xl px-4 py-16 sm:px-6 md:py-20">
+const Location = () => (
+  <section id="location" className="mx-auto max-w-6xl px-4 py-16 sm:px-6 md:py-20">
     <div className="grid gap-10 md:grid-cols-5">
       <div className="md:col-span-2">
-        <h2 className="text-3xl font-extrabold sm:text-4xl">Lokasi</h2>
+        <h2 className="text-3xl font-extrabold sm:text-4xl">Location</h2>
         <address className="mt-6 text-lg not-italic">
           {shop.address}
           <br />
@@ -32,7 +32,7 @@ const Lokasi = () => (
             href={waLink('Halo Matahari Motor, saya mau tanya.')}
             target="_blank"
             rel="noreferrer"
-            className="rounded-md bg-merah px-5 py-3 font-medium text-white transition-colors hover:bg-merah-dark"
+            className="rounded-md bg-brand px-5 py-3 font-medium text-white transition-colors hover:bg-brand-dark"
           >
             WhatsApp {shop.phoneDisplay}
           </a>
@@ -58,4 +58,4 @@ const Lokasi = () => (
   </section>
 );
 
-export default Lokasi;
+export default Location;

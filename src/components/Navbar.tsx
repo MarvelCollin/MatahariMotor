@@ -3,9 +3,9 @@ import logo from '../assets/logo.webp';
 import { waLink } from '../lib/wa';
 
 const links = [
-  { label: 'Produk', href: '#produk' },
-  { label: 'Servis', href: '#servis' },
-  { label: 'Lokasi', href: '#lokasi' },
+  { label: 'Products', href: '#products' },
+  { label: 'Services', href: '#services' },
+  { label: 'Location', href: '#location' },
 ];
 
 const Navbar = () => {
@@ -46,7 +46,7 @@ const Navbar = () => {
               key={l.href}
               href={l.href}
               aria-current={active === l.href ? 'true' : undefined}
-              className="text-white/70 decoration-merah decoration-2 underline-offset-8 transition-colors hover:text-white aria-[current=true]:text-white aria-[current=true]:underline"
+              className="text-white/70 decoration-brand decoration-2 underline-offset-8 transition-colors hover:text-white aria-[current=true]:text-white aria-[current=true]:underline"
             >
               {l.label}
             </a>
@@ -55,7 +55,7 @@ const Navbar = () => {
             href={waLink('Halo Matahari Motor, saya mau tanya.')}
             target="_blank"
             rel="noreferrer"
-            className="rounded-md bg-merah px-4 py-2 font-medium transition-colors hover:bg-merah-dark"
+            className="rounded-md bg-brand px-4 py-2 font-medium transition-colors hover:bg-brand-dark"
           >
             Chat WhatsApp
           </a>
@@ -65,7 +65,7 @@ const Navbar = () => {
           type="button"
           className="rounded-md px-3 py-2 text-sm font-medium ring-1 ring-white/30 md:hidden"
           aria-expanded={open}
-          aria-controls="menu-mobile"
+          aria-controls="mobile-menu"
           onClick={() => setOpen(!open)}
         >
           {open ? 'Tutup' : 'Menu'}
@@ -73,7 +73,7 @@ const Navbar = () => {
       </div>
 
       {open && (
-        <nav id="menu-mobile" className="border-t border-white/15 px-4 pb-4 md:hidden" aria-label="Menu mobile">
+        <nav id="mobile-menu" className="border-t border-white/15 px-4 pb-4 md:hidden" aria-label="Menu mobile">
           {links.map((l) => (
             <a
               key={l.href}

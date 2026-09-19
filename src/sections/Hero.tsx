@@ -1,11 +1,11 @@
 import { useEffect, useRef } from 'react';
-import velg from '../assets/products/velg-vnd.webp';
+import rim from '../assets/products/rim-vnd.webp';
 import { shop } from '../data/shop';
 import { todayStatus } from '../lib/hours';
 import { waLink } from '../lib/wa';
 
 const Speedo = () => {
-  const rim = useRef<HTMLImageElement>(null);
+  const rimRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -13,7 +13,7 @@ const Speedo = () => {
     const onScroll = () => {
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(() => {
-        if (rim.current) rim.current.style.transform = `rotate(${Math.min(window.scrollY, 1500) / 3}deg)`;
+        if (rimRef.current) rimRef.current.style.transform = `rotate(${Math.min(window.scrollY, 1500) / 3}deg)`;
       });
     };
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -27,9 +27,9 @@ const Speedo = () => {
     <div className="relative mx-auto aspect-square w-full max-w-[30rem]">
       <svg viewBox="0 0 400 400" className="absolute inset-0 h-full w-full" aria-hidden="true">
         <path d="M200 20 A180 180 0 0 1 380 200" fill="none" stroke="var(--color-sun)" strokeWidth="12" />
-        <path d="M380 200 A180 180 0 0 1 200 380" fill="none" stroke="var(--color-merah)" strokeWidth="12" />
+        <path d="M380 200 A180 180 0 0 1 200 380" fill="none" stroke="var(--color-brand)" strokeWidth="12" />
         <path d="M200 380 A180 180 0 0 1 20 200" fill="none" stroke="var(--color-sun)" strokeWidth="12" />
-        <path d="M20 200 A180 180 0 0 1 200 20" fill="none" stroke="var(--color-merah)" strokeWidth="12" />
+        <path d="M20 200 A180 180 0 0 1 200 20" fill="none" stroke="var(--color-brand)" strokeWidth="12" />
         {Array.from({ length: 60 }).map((_, i) => (
           <line
             key={i}
@@ -45,8 +45,8 @@ const Speedo = () => {
         <circle cx="200" cy="200" r="132" fill="var(--color-sun)" />
       </svg>
       <img
-        ref={rim}
-        src={velg}
+        ref={rimRef}
+        src={rim}
         alt="Velg racing VND, dijual di toko"
         width={277}
         height={278}
@@ -75,12 +75,12 @@ const Hero = () => {
                 href={waLink('Halo Matahari Motor, saya mau tanya stok sparepart.')}
                 target="_blank"
                 rel="noreferrer"
-                className="rounded-md bg-merah px-5 py-3 font-medium transition-colors hover:bg-merah-dark"
+                className="rounded-md bg-brand px-5 py-3 font-medium transition-colors hover:bg-brand-dark"
               >
                 Tanya stok via WhatsApp
               </a>
               <a
-                href="#produk"
+                href="#products"
                 className="rounded-md px-5 py-3 font-medium ring-1 ring-white/30 transition-colors hover:bg-white/10"
               >
                 Lihat produk
@@ -111,7 +111,7 @@ const Hero = () => {
           <div>
             <dt className="text-muted">WhatsApp</dt>
             <dd className="font-medium">
-              <a href={`tel:+${shop.whatsapp}`} className="hover:text-merah">
+              <a href={`tel:+${shop.whatsapp}`} className="hover:text-brand">
                 {shop.phoneDisplay}
               </a>
             </dd>

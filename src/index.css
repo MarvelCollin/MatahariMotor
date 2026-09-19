@@ -7,8 +7,8 @@
   --color-muted: #5f5f5f;
   --color-line: #e3e3e3;
   --color-tile: #f3f3f2;
-  --color-merah: #c62a1f;
-  --color-merah-dark: #a32118;
+  --color-brand: #c62a1f;
+  --color-brand-dark: #a32118;
   --color-sun: #eca81c;
   --font-head: "Archivo Variable", system-ui, sans-serif;
   --font-sans: "Schibsted Grotesk Variable", system-ui, sans-serif;
@@ -36,7 +36,7 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-merah);
+    outline: 2px solid var(--color-brand);
     outline-offset: 2px;
   }
 }

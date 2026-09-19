@@ -2,9 +2,9 @@ import Footer from './components/Footer';
 import Navbar from './components/Navbar';
 import WaBar from './components/WaBar';
 import Hero from './sections/Hero';
-import Lokasi from './sections/Lokasi';
-import Produk from './sections/Produk';
-import Servis from './sections/Servis';
+import Location from './sections/Location';
+import Products from './sections/Products';
+import Services from './sections/Services';
 
 function App() {
   return (
@@ -12,9 +12,9 @@ function App() {
       <Navbar />
       <main>
         <Hero />
-        <Produk />
-        <Servis />
-        <Lokasi />
+        <Products />
+        <Services />
+        <Location />
       </main>
       <Footer />
       <WaBar />

@@ -1,10 +1,10 @@
 import { products } from '../data/products';
 import { waLink } from '../lib/wa';
 
-const Produk = () => (
-  <section id="produk" className="mx-auto max-w-6xl px-4 py-16 sm:px-6 md:py-20">
+const Products = () => (
+  <section id="products" className="mx-auto max-w-6xl px-4 py-16 sm:px-6 md:py-20">
     <div className="flex flex-wrap items-baseline justify-between gap-3">
-      <h2 className="text-3xl font-extrabold sm:text-4xl">Produk di toko</h2>
+      <h2 className="text-3xl font-extrabold sm:text-4xl">Products di toko</h2>
       <p className="text-muted">Harga sesuai ukuran &amp; tipe motor.</p>
     </div>
 
@@ -27,7 +27,7 @@ const Produk = () => (
             href={waLink(`Halo Matahari Motor, saya mau tanya harga dan stok ${p.name}.`)}
             target="_blank"
             rel="noreferrer"
-            className="mt-auto pt-3 font-medium text-merah hover:underline"
+            className="mt-auto pt-3 font-medium text-brand hover:underline"
           >
             Tanya harga →
           </a>
@@ -39,4 +39,4 @@ const Produk = () => (
   </section>
 );
 
-export default Produk;
+export default Products;
