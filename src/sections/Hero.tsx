@@ -1,349 +1,100 @@
-import { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
-import { 
-  FaArrowRight, FaTools, FaMagic, FaRocket
-} from 'react-icons/fa';
-import logo from '../assets/logo.png';
-import BicycleAnimation from '../components/BicycleAnimation';
-import type { BicycleAnimationRef } from '../components/BicycleAnimation';
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import velg from '../assets/products/velg-vnd.webp';
+import { categories, shop } from '../data/shop';
+import { waLink } from '../lib/wa';
 
-const Hero = () => {
-  const [interactiveMode, setInteractiveMode] = useState("default");
-  const containerRef = useRef<HTMLDivElement>(null);
-  const bicycleAnimationRef = useRef<BicycleAnimationRef>(null);
-  
-  const cycleMode = (targetMode: string) => {
-    if (targetMode !== interactiveMode) {
-      setInteractiveMode(targetMode);
-    } else {
-      setInteractiveMode("default");
-    }
-  };
-  
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!containerRef.current || !bicycleAnimationRef.current) return;
-      
-      const { clientX, clientY } = e;
-      const { left, top, width, height } = containerRef.current.getBoundingClientRect();
-      
-      const rawX = (clientX - left) / width;
-      const rawY = (clientY - top) / height;
-      
-      const moveX = (rawX - 0.5) * 4;
-      const moveY = (rawY - 0.5) * 2;
-      bicycleAnimationRef.current.updateBikePosition(moveX, moveY);
-    };
-    
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+const Sun = () => {
+  const reduce = useReducedMotion();
+  const { scrollY } = useScroll();
+  const rotate = useTransform(scrollY, [0, 900], [0, reduce ? 0 : 300]);
 
   return (
-    <motion.section 
-      id="home" 
-      className="relative h-screen overflow-hidden bg-gray-900"
-      ref={containerRef}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 1 }}
-    >
-      {/* Fixed Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black">
-        {/* Static gradient overlay */}
-        <div className="absolute inset-0 opacity-20 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-orange-500/20 via-transparent to-transparent"></div>
-        
-        {/* Fixed position decorative elements */}
-        <div className="absolute top-[15%] left-[10%] w-24 h-24 rounded-full bg-orange-500/5 blur-3xl"></div>
-        <div className="absolute bottom-[20%] right-[15%] w-32 h-32 rounded-full bg-orange-500/5 blur-3xl"></div>
-        <div className="absolute top-[40%] right-[20%] w-16 h-16 rounded-full bg-orange-600/5 blur-2xl"></div>
-      </div>
-      
-      {/* Stable Grid Pattern */}
-      <div className="absolute inset-0 opacity-5 pointer-events-none">
-        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="smallGrid" width="20" height="20" patternUnits="userSpaceOnUse">
-              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(249, 115, 22, 0.3)" strokeWidth="0.5"/>
-            </pattern>
-            <pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse">
-              <rect width="100" height="100" fill="url(#smallGrid)"/>
-              <path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(249, 115, 22, 0.5)" strokeWidth="1"/>
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#grid)" />
-        </svg>
-      </div>
-      
-      {/* Fixed animated accents */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Top accent */}
-        <motion.div
-          className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-orange-500/20 to-transparent"
-          animate={{ 
-            x: ['-100%', '100%'],
-            opacity: [0, 0.5, 0]
-          }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            repeatType: "loop",
-            ease: "linear"
-          }}
-        />
-        
-        {/* Bottom accent */}
-        <motion.div
-          className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-orange-500/20 to-transparent"
-          animate={{ 
-            x: ['100%', '-100%'],
-            opacity: [0, 0.5, 0]
-          }}
-          transition={{
-            duration: 18,
-            repeat: Infinity,
-            repeatType: "loop",
-            ease: "linear"
-          }}
-        />
-        
-        {/* Minimal animated dots */}
-        {[1, 2, 3, 4].map((item) => (
-          <motion.div
-            key={item}
-            className="absolute w-2 h-2 rounded-full bg-orange-500/30"
-            style={{
-              top: `${20 + item * 15}%`,
-              left: `${10 + item * 20}%`,
-            }}
-            animate={{
-              y: [0, item % 2 === 0 ? 30 : -30, 0],
-              opacity: [0.2, 0.4, 0.2],
-            }}
-            transition={{
-              duration: 10 + item * 2,
-              repeat: Infinity,
-              repeatType: "reverse",
-              ease: "easeInOut"
-            }}
+    <div className="relative mx-auto aspect-square w-full max-w-[26rem]">
+      <svg viewBox="0 0 400 400" className="absolute inset-0 h-full w-full" aria-hidden="true">
+        <circle cx="200" cy="200" r="196" fill="var(--color-ink)" />
+        <path d="M200 22 A178 178 0 0 1 378 200" fill="none" stroke="var(--color-sun)" strokeWidth="14" />
+        <path d="M378 200 A178 178 0 0 1 200 378" fill="none" stroke="var(--color-merah)" strokeWidth="14" />
+        <path d="M200 378 A178 178 0 0 1 22 200" fill="none" stroke="var(--color-sun)" strokeWidth="14" />
+        <path d="M22 200 A178 178 0 0 1 200 22" fill="none" stroke="var(--color-merah)" strokeWidth="14" />
+        <circle cx="200" cy="200" r="150" fill="var(--color-sun)" />
+        {Array.from({ length: 60 }).map((_, i) => (
+          <line
+            key={i}
+            x1="200"
+            y1="36"
+            x2="200"
+            y2={i % 5 === 0 ? 50 : 44}
+            stroke="var(--color-paper)"
+            strokeWidth={i % 5 === 0 ? 2 : 1}
+            transform={`rotate(${i * 6} 200 200)`}
           />
         ))}
-      </div>
-
-      {/* Main content container */}
-      <div className="container mx-auto px-6 h-full flex flex-col items-center justify-center relative z-10">
-        {/* Logo with animated entry */}
-        <motion.div
-          className="absolute top-8 left-6 z-20"
-          initial={{ opacity: 0, scale: 0.8, y: -50 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ 
-            duration: 0.8, 
-            type: "spring",
-            delay: 0.2
-          }}
-        >
-          <img src={logo} alt="Matahari Motor" className="w-24 h-24 md:w-28 md:h-28" />
-        </motion.div>
-        
-        {/* Interactive content area */}
-        <div className="w-full flex flex-col md:flex-row items-center justify-between mt-16 md:mt-0">
-          {/* Left side - Text content */}
-          <motion.div 
-            className="md:w-1/2 text-white px-2 md:px-0"
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ 
-              duration: 0.8, 
-              type: "spring",
-              delay: 0.5
-            }}
-          >
-            <motion.h1 
-              className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.7 }}
-            >
-              <motion.span 
-                className="inline-block bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-orange-600"
-                animate={{
-                  backgroundPosition: ['0% center', '100% center', '0% center'],
-                }}
-                transition={{
-                  duration: 8,
-                  repeat: Infinity,
-                }}
-              >
-                Matahari
-              </motion.span>{" "}
-              <motion.span 
-                className="inline-block text-white"
-                animate={{
-                  textShadow: [
-                    '0 0 5px rgba(255,255,255,0.1)',
-                    '0 0 15px rgba(255,255,255,0.3)',
-                    '0 0 5px rgba(255,255,255,0.1)'
-                  ]
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity
-                }}
-              >
-                Motor
-              </motion.span>
-            </motion.h1>
-            
-            <motion.p 
-              className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-4 sm:mb-6"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.9 }}
-            >
-              Premium Bicycle Spare Parts & Workshop
-            </motion.p>
-            
-            <motion.p 
-              className="text-gray-400 max-w-lg mb-6 sm:mb-8 text-sm sm:text-base"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1.1 }}
-            >
-              We provide high-quality bicycle parts and professional repair services to
-              keep your ride smooth and enjoyable, with expertise in all types of bicycles.
-            </motion.p>
-            
-            {/* Interactive Mode Selector */}
-            <motion.div 
-              className="flex gap-2 sm:gap-4 mb-6 sm:mb-8 flex-wrap"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1.3 }}
-            >
-              {[
-                { mode: "repair", icon: <FaTools />, text: "Repair Services" },
-                { mode: "customize", icon: <FaMagic />, text: "Custom Builds" },
-                { mode: "speed", icon: <FaRocket />, text: "Speed Upgrades" }
-              ].map((item, index) => (
-                <motion.button
-                  key={index}
-                  onClick={() => cycleMode(item.mode)}
-                  className={`px-3 py-2 sm:px-4 sm:py-3 rounded-lg flex items-center gap-1 sm:gap-2 transition-all text-sm sm:text-base ${
-                    interactiveMode === item.mode
-                      ? "bg-orange-500 text-white" 
-                      : "bg-gray-800 text-gray-300 hover:bg-gray-700"
-                  }`}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <span>{item.icon}</span>
-                  <span>{item.text}</span>
-                  {interactiveMode === item.mode && (
-                    <motion.span 
-                      className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-white ml-1"
-                      layoutId="activeModeDot"
-                    />
-                  )}
-                </motion.button>
-              ))}
-            </motion.div>
-            
-            {/* Call to action buttons */}
-            <motion.div 
-              className="flex gap-3 sm:gap-4 mb-6 sm:mb-8 flex-wrap"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1.5 }}
-            >
-              <motion.a
-                href="#services"
-                className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-4 sm:px-8 py-3 sm:py-4 rounded-xl flex items-center gap-2 text-sm sm:text-base"
-                whileHover={{ 
-                  scale: 1.05, 
-                  boxShadow: "0 0 20px rgba(249, 115, 22, 0.4)" 
-                }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <span>Explore Services</span>
-                <FaTools />
-              </motion.a>
-              <motion.a
-                href="#parts"
-                className="bg-gray-800 text-orange-500 border border-orange-500 px-4 sm:px-8 py-3 sm:py-4 rounded-xl flex items-center gap-2 text-sm sm:text-base"
-                whileHover={{ 
-                  scale: 1.05,
-                  backgroundColor: "rgba(249, 115, 22, 0.1)"
-                }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <span>Browse Parts</span>
-                <FaArrowRight />
-              </motion.a>
-            </motion.div>
-          </motion.div>
-          
-          {/* Right side - Interactive bicycle visualization */}
-          <motion.div 
-            className="relative md:w-1/2 h-[380px] md:h-[500px] mt-4 md:mt-0 flex items-center justify-center"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 1 }}
-          >
-            {/* Expert service badge */}
-            <motion.div
-              className="absolute bottom-0 right-0 md:bottom-4 md:right-4 bg-gradient-to-br from-orange-500 to-orange-600 text-white p-3 sm:p-4 rounded-xl shadow-xl z-10"
-              initial={{ opacity: 0, scale: 0, rotate: -10 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              transition={{ delay: 2, duration: 0.5, type: "spring" }}
-              whileHover={{ 
-                scale: 1.1, 
-                rotate: 5,
-                boxShadow: "0 10px 20px rgba(0,0,0,0.2)"
-              }}
-            >
-              <p className="font-bold text-sm sm:text-base">Expert Service</p>
-              <p className="text-xs sm:text-sm">10+ Years Experience</p>
-            </motion.div>
-
-            {/* Bicycle Animation Component */}
-            <div className="relative w-full h-full flex items-center justify-center pt-6 sm:pt-8">
-              <BicycleAnimation 
-                ref={bicycleAnimationRef} 
-                interactiveMode={interactiveMode} 
-              />
-            </div>
-          </motion.div>
-        </div>
-      </div>
-
-      {/* Scroll indicator */}
-      <motion.div 
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2.5, duration: 1 }}
-      >
-        <motion.div 
-          className="flex flex-col items-center"
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          <p className="text-gray-400 text-sm mb-2">Scroll to explore</p>
-          <motion.div 
-            className="w-6 h-10 border-2 border-orange-500 rounded-full flex justify-center"
-            whileHover={{ scale: 1.1 }}
-          >
-            <motion.div 
-              className="w-2 h-2 bg-orange-500 rounded-full mt-1"
-              animate={{ y: [0, 16, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-            />
-          </motion.div>
-        </motion.div>
-      </motion.div>
-    </motion.section>
+      </svg>
+      <motion.img
+        src={velg}
+        alt="Velg racing VND lima palang"
+        width={277}
+        height={278}
+        style={{ rotate }}
+        className="absolute inset-[17%] h-[66%] w-[66%] object-contain drop-shadow-[6px_8px_0_rgba(23,20,15,0.35)]"
+      />
+      <p className="absolute -bottom-2 left-0 bg-paper px-2 py-1 font-mono text-xs sm:text-sm">
+        Velg VND · ada di toko
+      </p>
+    </div>
   );
 };
 
-export default Hero; 
+const Hero = () => (
+  <section id="top" className="border-b-2 border-ink">
+    <div className="mx-auto grid max-w-7xl gap-12 px-4 pt-10 pb-14 sm:px-6 md:grid-cols-12 md:items-center md:pt-16 md:pb-20">
+      <div className="md:col-span-7">
+        <p className="font-mono text-sm text-ink-soft">
+          Toko onderdil &amp; bengkel motor · {shop.city}
+        </p>
+        <h1 className="mt-4 font-display text-[clamp(3.75rem,11vw,8.5rem)] font-black uppercase leading-[0.86] tracking-tight">
+          Beli onderdil,
+          <br />
+          <span className="text-merah">pasang</span> di tempat.
+        </h1>
+        <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-soft">
+          Ban, velg, shock, stang, sampai oli dan kampas rem. Pilih barangnya di etalase, mekanik kami yang pasang.
+          Untuk motor matic, bebek, dan sport.
+        </p>
+        <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
+          <a
+            href={waLink('Halo Matahari Motor, saya mau tanya stok onderdil.')}
+            target="_blank"
+            rel="noreferrer"
+            className="bg-ink px-6 py-4 font-medium text-paper shadow-[5px_5px_0_var(--color-sun)] transition-[background-color,box-shadow,translate] hover:bg-merah active:translate-x-1 active:translate-y-1 active:shadow-none"
+          >
+            Tanya stok via WhatsApp
+          </a>
+          <a href="#katalog" className="font-medium underline decoration-2 underline-offset-[6px] hover:text-merah">
+            Lihat katalog
+          </a>
+        </div>
+      </div>
+      <div className="md:col-span-5">
+        <Sun />
+      </div>
+    </div>
+
+    <div className="overflow-hidden border-t-2 border-ink bg-ink py-3 text-paper" aria-hidden="true">
+      <div className="marquee flex w-max">
+        {[0, 1].map((k) => (
+          <div key={k} className="flex shrink-0">
+            {categories.map((c) => (
+              <span key={c} className="flex items-center font-display text-2xl font-bold uppercase">
+                <span className="px-6">{c}</span>
+                <span className="h-2.5 w-2.5 rounded-full bg-sun" />
+              </span>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+export default Hero;

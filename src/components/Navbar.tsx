@@ -1,99 +1,90 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { FaBars, FaTimes } from 'react-icons/fa';
-import logo from '../assets/logo.png';
+import { useEffect, useState } from 'react';
+import logo from '../assets/logo.webp';
+import { waLink } from '../lib/wa';
+
+const links = [
+  { label: 'Layanan', href: '#layanan' },
+  { label: 'Katalog', href: '#katalog' },
+  { label: 'Bengkel', href: '#bengkel' },
+  { label: 'Kontak', href: '#kontak' },
+];
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const menuItems = [
-    { title: 'Home', link: '#home' },
-    { title: 'Services', link: '#services' },
-    { title: 'Parts', link: '#parts' },
-    { title: 'About', link: '#about' },
-    { title: 'Testimonials', link: '#testimonials' },
-    { title: 'Contact', link: '#contact' },
-  ];
+    document.body.style.overflow = open ? 'hidden' : '';
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false);
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [open]);
 
   return (
-    <motion.nav
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className={`fixed w-full z-50 transition-all duration-300 ${
-        scrolled ? 'bg-black/80 backdrop-blur-md py-2 shadow-lg' : 'bg-transparent py-4'
-      }`}
-    >
-      <div className="container mx-auto px-4 flex justify-between items-center">
-        <motion.a 
-          href="#home"
-          className="flex items-center"
-          whileHover={{ scale: 1.05 }}
-        >
-          <img src={logo} alt="Matahari Motor" className="h-12 md:h-14" />
-        </motion.a>
+    <header className="sticky top-0 z-50 border-b-2 border-ink bg-paper">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6">
+        <a href="#top" className="flex items-center gap-3" aria-label="Matahari Motor, ke atas">
+          <img src={logo} alt="" width={40} height={40} className="h-10 w-10" />
+          <span className="font-display text-2xl font-extrabold uppercase leading-none tracking-tight">
+            Matahari<span className="text-merah"> Motor</span>
+          </span>
+        </a>
 
-        <div className="hidden md:flex space-x-8">
-          {menuItems.map((item, index) => (
-            <motion.a
-              key={index}
-              href={item.link}
-              className="text-white hover:text-orange-400 transition-colors"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {item.title}
-            </motion.a>
+        <nav className="hidden items-center gap-8 md:flex" aria-label="Utama">
+          {links.map((l) => (
+            <a key={l.href} href={l.href} className="font-medium decoration-2 underline-offset-4 hover:underline">
+              {l.label}
+            </a>
           ))}
-        </div>
-
-        <div className="md:hidden">
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="text-white focus:outline-none"
+          <a
+            href={waLink('Halo Matahari Motor, saya mau tanya.')}
+            target="_blank"
+            rel="noreferrer"
+            className="bg-ink px-4 py-2 font-medium text-paper transition-colors hover:bg-merah"
           >
-            {isOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
-          </button>
-        </div>
+            Chat WhatsApp
+          </a>
+        </nav>
+
+        <button
+          type="button"
+          className="flex h-11 w-11 flex-col items-center justify-center gap-1.5 md:hidden"
+          aria-expanded={open}
+          aria-controls="menu-mobile"
+          aria-label={open ? 'Tutup menu' : 'Buka menu'}
+          onClick={() => setOpen(!open)}
+        >
+          <span className={`h-0.5 w-6 bg-ink transition-transform ${open ? 'translate-y-2 rotate-45' : ''}`} />
+          <span className={`h-0.5 w-6 bg-ink transition-opacity ${open ? 'opacity-0' : ''}`} />
+          <span className={`h-0.5 w-6 bg-ink transition-transform ${open ? '-translate-y-2 -rotate-45' : ''}`} />
+        </button>
       </div>
 
-      {isOpen && (
-        <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: 'auto' }}
-          exit={{ opacity: 0, height: 0 }}
-          className="md:hidden bg-black/90 backdrop-blur-md"
-        >
-          <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
-            {menuItems.map((item, index) => (
+      {open && (
+        <div id="menu-mobile" className="fixed inset-x-0 top-16 bottom-0 bg-paper md:hidden">
+          <nav className="flex flex-col px-4 pt-4" aria-label="Menu mobile">
+            {links.map((l) => (
               <a
-                key={index}
-                href={item.link}
-                className="text-white hover:text-orange-400 transition-colors py-2 px-4"
-                onClick={() => setIsOpen(false)}
+                key={l.href}
+                href={l.href}
+                onClick={() => setOpen(false)}
+                className="border-b border-ink/20 py-4 font-display text-4xl font-bold uppercase"
               >
-                {item.title}
+                {l.label}
               </a>
             ))}
-          </div>
-        </motion.div>
+            <a
+              href={waLink('Halo Matahari Motor, saya mau tanya.')}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-6 bg-ink py-4 text-center font-medium text-paper"
+            >
+              Chat WhatsApp
+            </a>
+          </nav>
+        </div>
       )}
-    </motion.nav>
+    </header>
   );
 };
 
-export default Navbar; 
+export default Navbar;
