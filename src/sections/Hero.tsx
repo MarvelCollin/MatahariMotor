@@ -1,4 +1,5 @@
 import { useEffect, useRef, type ReactNode } from 'react';
+import { animate, createScope, createDrawable, stagger, onScroll, type Scope } from 'animejs';
 import Eyebrow from '../components/Eyebrow';
 import rim from '../assets/products/rim-vnd.webp';
 import { shop } from '../data/shop';
@@ -7,34 +8,55 @@ import { revealClass, useMounted, zoomClass } from '../lib/useInView';
 import { waLink } from '../lib/wa';
 
 const Speedo = () => {
-  const rimRef = useRef<HTMLImageElement>(null);
+  const root = useRef<HTMLDivElement>(null);
+  const scope = useRef<Scope | null>(null);
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    let frame = 0;
-    const onScroll = () => {
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => {
-        if (rimRef.current) rimRef.current.style.transform = `rotate(${Math.min(window.scrollY, 1500) / 3}deg)`;
+
+    scope.current = createScope({ root }).add(() => {
+      animate(createDrawable('.arc'), {
+        draw: ['0 0', '0 1'],
+        duration: 1000,
+        delay: stagger(120),
+        ease: 'inOut(3)',
       });
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => {
-      cancelAnimationFrame(frame);
-      window.removeEventListener('scroll', onScroll);
-    };
+
+      animate('.tick', {
+        opacity: [0, 1],
+        duration: 500,
+        delay: stagger(10, { start: 340 }),
+        ease: 'out(3)',
+      });
+
+      animate('.hub', {
+        r: [0, 132],
+        duration: 1100,
+        delay: 300,
+        ease: 'out(4)',
+      });
+
+      animate('.rim', {
+        rotate: 540,
+        ease: 'linear',
+        autoplay: onScroll({ sync: 0.35, enter: 'bottom top', leave: 'top bottom' }),
+      });
+    });
+
+    return () => scope.current?.revert();
   }, []);
 
   return (
-    <div className="relative mx-auto aspect-square w-full max-w-[30rem]">
+    <div ref={root} className="relative mx-auto aspect-square w-full max-w-[30rem]">
       <svg viewBox="0 0 400 400" className="absolute inset-0 h-full w-full" aria-hidden="true">
-        <path d="M200 20 A180 180 0 0 1 380 200" fill="none" stroke="var(--color-sun)" strokeWidth="12" />
-        <path d="M380 200 A180 180 0 0 1 200 380" fill="none" stroke="var(--color-brand)" strokeWidth="12" />
-        <path d="M200 380 A180 180 0 0 1 20 200" fill="none" stroke="var(--color-sun)" strokeWidth="12" />
-        <path d="M20 200 A180 180 0 0 1 200 20" fill="none" stroke="var(--color-brand)" strokeWidth="12" />
+        <path className="arc" d="M200 20 A180 180 0 0 1 380 200" fill="none" stroke="var(--color-sun)" strokeWidth="12" />
+        <path className="arc" d="M380 200 A180 180 0 0 1 200 380" fill="none" stroke="var(--color-brand)" strokeWidth="12" />
+        <path className="arc" d="M200 380 A180 180 0 0 1 20 200" fill="none" stroke="var(--color-sun)" strokeWidth="12" />
+        <path className="arc" d="M20 200 A180 180 0 0 1 200 20" fill="none" stroke="var(--color-brand)" strokeWidth="12" />
         {Array.from({ length: 60 }).map((_, i) => (
           <line
             key={i}
+            className="tick"
             x1="200"
             y1="38"
             x2="200"
@@ -44,15 +66,14 @@ const Speedo = () => {
             transform={`rotate(${i * 6} 200 200)`}
           />
         ))}
-        <circle cx="200" cy="200" r="132" fill="var(--color-sun)" />
+        <circle className="hub" cx="200" cy="200" r="132" fill="var(--color-sun)" />
       </svg>
       <img
-        ref={rimRef}
         src={rim}
         alt="Velg racing VND, dijual di toko"
         width={277}
         height={278}
-        className="absolute inset-[19%] h-[62%] w-[62%] object-contain drop-shadow-[0_18px_24px_rgba(0,0,0,0.45)]"
+        className="rim absolute inset-[19%] h-[62%] w-[62%] object-contain drop-shadow-[0_18px_24px_rgba(0,0,0,0.45)]"
       />
     </div>
   );
