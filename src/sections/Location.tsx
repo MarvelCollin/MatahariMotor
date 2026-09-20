@@ -1,63 +1,74 @@
+import type { ReactNode } from 'react';
+import Eyebrow from '../components/Eyebrow';
+import SectionIntro from '../components/SectionIntro';
 import { shop } from '../data/shop';
+import { hoursLine } from '../lib/hours';
+import { revealClass, useInView } from '../lib/useInView';
 import { mapsEmbed, mapsLink, waLink } from '../lib/wa';
 
-const Location = () => (
-  <section id="location" className="border-b-2 border-ink bg-sun">
-    <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 md:py-24 lg:grid-cols-12">
-      <div className="lg:col-span-5">
-        <h2 className="font-display text-6xl leading-[0.9] font-black uppercase sm:text-7xl">
-          Mampir
-          <br />
-          ke toko
-        </h2>
-        <address className="mt-8 text-lg not-italic">
-          {shop.address}
-          <br />
-          {shop.district}
-          <br />
-          {shop.region}
-        </address>
-        <table className="mt-6 text-lg">
-          <tbody>
-            {shop.hours.map((h) => (
-              <tr key={h.day}>
-                <th scope="row" className="py-0.5 pr-8 text-left font-normal">
-                  {h.day}
-                </th>
-                <td className="py-0.5 font-medium">{h.time}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
-          <a
-            href={waLink('Halo Matahari Motor, saya mau tanya.')}
-            target="_blank"
-            rel="noreferrer"
-            className="bg-ink px-6 py-4 font-medium text-paper transition-colors hover:bg-brand"
-          >
-            WhatsApp {shop.phoneDisplay}
-          </a>
-          <a
-            href={mapsLink()}
-            target="_blank"
-            rel="noreferrer"
-            className="font-medium underline decoration-2 underline-offset-[6px] hover:text-brand"
-          >
-            Petunjuk arah
-          </a>
-        </div>
-      </div>
-
-      <iframe
-        title="Peta lokasi Matahari Motor"
-        src={mapsEmbed()}
-        loading="lazy"
-        referrerPolicy="no-referrer-when-downgrade"
-        className="aspect-[4/3] w-full border-2 border-ink bg-paper lg:col-span-7 lg:aspect-auto lg:min-h-[28rem]"
-      />
-    </div>
-  </section>
+const Row = ({ label, children }: { label: string; children: ReactNode }) => (
+  <div className="border-b border-line py-4">
+    <Eyebrow as="dt">{label}</Eyebrow>
+    <dd className="mt-2 font-head leading-relaxed font-semibold">{children}</dd>
+  </div>
 );
+
+const Location = () => {
+  const { ref, inView } = useInView<HTMLIFrameElement>();
+
+  return (
+    <section id="location" className="mx-auto max-w-6xl px-4 py-20 sm:px-6 md:py-28">
+      <div className="grid items-start gap-12 md:grid-cols-[minmax(0,1fr)_2fr] md:gap-16">
+        <SectionIntro eyebrow="Kunjungi" title="Lokasi">
+          <dl className="mt-8 border-t border-line">
+            <Row label="Alamat">
+              <address className="not-italic">
+                {shop.address}
+                <br />
+                {shop.district}
+                <br />
+                {shop.region}
+              </address>
+            </Row>
+            <Row label="Jam buka">{hoursLine}</Row>
+            <Row label="WhatsApp">
+              <a href={`tel:+${shop.whatsapp}`} className="transition-colors hover:text-brand">
+                {shop.phoneDisplay}
+              </a>
+            </Row>
+          </dl>
+
+          <div className="mt-8 flex flex-wrap gap-3">
+            <a
+              href={waLink('Halo Matahari Motor, saya mau tanya.')}
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-md bg-brand px-5 py-3 font-medium text-white transition-colors hover:bg-brand-dark"
+            >
+              Chat WhatsApp
+            </a>
+            <a
+              href={mapsLink()}
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-md px-5 py-3 font-medium ring-1 ring-ink/25 transition-colors hover:bg-tile"
+            >
+              Petunjuk arah
+            </a>
+          </div>
+        </SectionIntro>
+
+        <iframe
+          ref={ref}
+          title="Peta lokasi Matahari Motor"
+          src={mapsEmbed()}
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          className={`aspect-[4/3] w-full rounded-xl bg-tile ring-1 ring-ink/5 md:aspect-auto md:min-h-[34rem] ${revealClass(inView)}`}
+        />
+      </div>
+    </section>
+  );
+};
 
 export default Location;
