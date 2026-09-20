@@ -1,4 +1,4 @@
-import { useEffect, useRef, type ReactNode } from 'react';
+import { useLayoutEffect, useRef, type ReactNode } from 'react';
 import { animate, createScope, createDrawable, stagger, onScroll, type Scope } from 'animejs';
 import Eyebrow from '../components/Eyebrow';
 import rim from '../assets/products/rim-vnd.webp';
@@ -11,10 +11,28 @@ const Speedo = () => {
   const root = useRef<HTMLDivElement>(null);
   const scope = useRef<Scope | null>(null);
 
-  useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  useLayoutEffect(() => {
+    const el = root.current;
+    if (!el) return;
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      el.dataset.story = 'in';
+      return;
+    }
+
+    if (el.dataset.story === 'in') return;
+    el.dataset.story = 'out';
 
     scope.current = createScope({ root }).add(() => {
+      animate(el, {
+        opacity: [0, 1],
+        duration: 420,
+        ease: 'out(2)',
+        onComplete: () => {
+          el.dataset.story = 'in';
+        },
+      });
+
       animate(createDrawable('.arc'), {
         draw: ['0 0', '0 1'],
         duration: 1000,
@@ -47,7 +65,7 @@ const Speedo = () => {
   }, []);
 
   return (
-    <div ref={root} className="relative mx-auto aspect-square w-full max-w-[30rem]">
+    <div ref={root} className="story-speedo relative mx-auto aspect-square w-full max-w-[30rem]">
       <svg viewBox="0 0 400 400" className="absolute inset-0 h-full w-full" aria-hidden="true">
         <path className="arc" d="M200 20 A180 180 0 0 1 380 200" fill="none" stroke="var(--color-sun)" strokeWidth="12" />
         <path className="arc" d="M380 200 A180 180 0 0 1 200 380" fill="none" stroke="var(--color-brand)" strokeWidth="12" />

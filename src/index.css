@@ -49,6 +49,7 @@
 [data-story='out'] .story-body,
 [data-story='out'] .story-row,
 [data-story='out'] .story-card,
-[data-story='out'] .story-map {
+[data-story='out'] .story-map,
+.story-speedo[data-story='out'] {
   opacity: 0;
 }

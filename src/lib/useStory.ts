@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 import { createScope, createTimeline, type Scope, type Timeline } from 'animejs';
 
 const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -9,23 +9,31 @@ export const useStory = <T extends HTMLElement>(build: (timeline: Timeline) => v
   const builder = useRef(build);
   builder.current = build;
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const el = root.current;
-    if (!el || reducedMotion()) return;
+    if (!el) return;
 
+    if (reducedMotion()) {
+      el.dataset.story = 'in';
+      return;
+    }
+
+    if (el.dataset.story === 'in') return;
     el.dataset.story = 'out';
 
     scope.current = createScope({ root }).add(() => {
       const timeline = createTimeline({
         defaults: { ease: 'out(3)', duration: 760 },
         autoplay: false,
+        onComplete: () => {
+          el.dataset.story = 'in';
+        },
       });
       builder.current(timeline);
 
       const observer = new IntersectionObserver(
         ([entry]) => {
           if (!entry.isIntersecting) return;
-          el.dataset.story = 'in';
           timeline.play();
           observer.disconnect();
         },
