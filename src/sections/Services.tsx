@@ -1,22 +1,20 @@
 import SectionIntro from '../components/SectionIntro';
 import { services } from '../data/services';
 import { stagger } from 'animejs';
-import { useStory } from '../lib/useStory';
+import { storyIntro, useStory } from '../lib/useStory';
 import { waLink } from '../lib/wa';
 
 const Services = () => {
   const root = useStory<HTMLElement>((timeline) => {
-    timeline
-      .add('.story-eyebrow', { opacity: [0, 1], x: [-16, 0] })
-      .add('.story-title', { opacity: [0, 1], y: [28, 0] }, '-=560')
-      .add('.story-body', { opacity: [0, 1], y: [20, 0] }, '-=520')
+    storyIntro(timeline)
       .add('.story-row', { opacity: [0, 1], y: [24, 0], duration: 680, delay: stagger(90) }, '-=420')
-      .add('.story-num', { opacity: [0, 1], scale: [0.4, 1], duration: 520, delay: stagger(90) }, '<<+=120');
+      .add('.story-num', { opacity: [0, 1], scale: [0.6, 1], duration: 560, delay: stagger(90) }, '<<+=140');
   });
 
   return (
-    <section id="services" ref={root} className="bg-ink text-white">
-      <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 md:py-28">
+    <section id="services" ref={root} className="relative overflow-hidden bg-ink text-white">
+      <div className="story-glow" aria-hidden="true" />
+      <div className="relative z-10 mx-auto max-w-6xl px-4 py-20 sm:px-6 md:py-28">
         <div className="grid items-start gap-12 md:grid-cols-[minmax(0,1fr)_2fr] md:gap-16">
           <SectionIntro eyebrow="Bengkel" title="Servis" tone="dark">
             <p className="mt-5 text-lg text-white/60">Semua servis dikerjakan di toko, sparepart-nya tinggal ambil dari rak.</p>

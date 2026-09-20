@@ -1,5 +1,11 @@
 import { useLayoutEffect, useRef } from 'react';
-import { createScope, createTimeline, type Scope, type Timeline } from 'animejs';
+import { animate, createScope, createTimeline, onScroll, type Scope, type Timeline } from 'animejs';
+
+export const storyIntro = (timeline: Timeline) =>
+  timeline
+    .add('.story-eyebrow', { opacity: [0, 1], x: [-16, 0] })
+    .add('.story-title', { opacity: [0, 1], y: [28, 0] }, '-=560')
+    .add('.story-body', { opacity: [0, 1], y: [20, 0] }, '-=520');
 
 const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -30,6 +36,15 @@ export const useStory = <T extends HTMLElement>(build: (timeline: Timeline) => v
         },
       });
       builder.current(timeline);
+
+      if (el.querySelector('.story-glow')) {
+        animate('.story-glow', {
+          y: ['-12%', '12%'],
+          scale: [0.9, 1.15],
+          ease: 'linear',
+          autoplay: onScroll({ target: el, sync: 0.4, enter: 'bottom top', leave: 'top bottom' }),
+        });
+      }
 
       const observer = new IntersectionObserver(
         ([entry]) => {

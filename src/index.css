@@ -48,8 +48,31 @@
 [data-story='out'] .story-title,
 [data-story='out'] .story-body,
 [data-story='out'] .story-row,
+[data-story='out'] .story-num,
 [data-story='out'] .story-card,
 [data-story='out'] .story-map,
 .story-speedo[data-story='out'] {
   opacity: 0;
+}
+
+.story-glow {
+  position: absolute;
+  inset-inline: -15%;
+  top: 0;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(55% 45% at 50% 18%, var(--glow-tint), transparent 68%);
+  filter: blur(70px);
+  --glow-tint: color-mix(in srgb, var(--color-sun) 6%, transparent);
+}
+
+.story-glow-brand {
+  --glow-tint: color-mix(in srgb, var(--color-brand) 4%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story-glow {
+    display: none;
+  }
 }

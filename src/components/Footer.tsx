@@ -1,7 +1,8 @@
 import logo from '../assets/logo.webp';
 import { shop } from '../data/shop';
 import { hoursLine } from '../lib/hours';
-import { revealClass, useInView } from '../lib/useInView';
+import { stagger } from 'animejs';
+import { storyIntro, useStory } from '../lib/useStory';
 import { waLink } from '../lib/wa';
 import Eyebrow from './Eyebrow';
 
@@ -12,15 +13,24 @@ const links = [
 ];
 
 const Footer = () => {
-  const { ref, inView } = useInView<HTMLDivElement>();
+  const root = useStory<HTMLElement>((timeline) => {
+    storyIntro(timeline).add(
+      '.story-row',
+      { opacity: [0, 1], y: [20, 0], duration: 640, delay: stagger(90) },
+      '-=420',
+    );
+  });
 
   return (
-    <footer className="bg-ink pb-24 text-white/70 md:pb-0">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div ref={ref} className={`flex flex-wrap items-center justify-between gap-x-10 gap-y-6 py-14 ${revealClass(inView)}`}>
+    <footer ref={root} className="relative overflow-hidden bg-ink pb-24 text-white/70 md:pb-0">
+      <div className="story-glow" aria-hidden="true" />
+      <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="flex flex-wrap items-center justify-between gap-x-10 gap-y-6 py-14">
           <div>
-            <Eyebrow tone="dark">Siap bantu</Eyebrow>
-            <p className="mt-4 font-head text-3xl leading-tight font-extrabold text-white sm:text-4xl">
+            <Eyebrow tone="dark" className="story-eyebrow">
+              Siap bantu
+            </Eyebrow>
+            <p className="story-title mt-4 font-head text-3xl leading-tight font-extrabold text-white sm:text-4xl">
               Butuh sparepart <span className="text-sun">atau servis?</span>
             </p>
           </div>
@@ -28,7 +38,7 @@ const Footer = () => {
             href={waLink('Halo Matahari Motor, saya mau tanya.')}
             target="_blank"
             rel="noreferrer"
-            className="group inline-flex items-center gap-2 rounded-md bg-brand px-6 py-3.5 font-medium text-white transition-colors hover:bg-brand-dark"
+            className="story-body group inline-flex items-center gap-2 rounded-md bg-brand px-6 py-3.5 font-medium text-white transition-colors hover:bg-brand-dark"
           >
             Chat WhatsApp <span className="hidden sm:inline">{shop.phoneDisplay}</span>
             <span
@@ -41,7 +51,7 @@ const Footer = () => {
         </div>
 
         <div className="grid gap-8 border-t border-white/10 py-10 sm:grid-cols-3">
-          <div className="flex items-center gap-3">
+          <div className="story-row flex items-center gap-3">
             <img src={logo} alt="" width={40} height={40} className="h-10 w-10" loading="lazy" />
             <div className="text-sm">
               <p className="font-head font-bold text-white">{shop.name}</p>
@@ -51,7 +61,7 @@ const Footer = () => {
             </div>
           </div>
 
-          <nav className="flex flex-wrap gap-x-6 gap-y-2 text-sm sm:justify-center" aria-label="Footer">
+          <nav className="story-row flex flex-wrap gap-x-6 gap-y-2 text-sm sm:justify-center" aria-label="Footer">
             {links.map((l) => (
               <a key={l.href} href={l.href} className="transition-colors hover:text-white">
                 {l.label}
@@ -59,7 +69,7 @@ const Footer = () => {
             ))}
           </nav>
 
-          <div className="sm:text-right">
+          <div className="story-row sm:text-right">
             <div className="flex sm:justify-end">
               <Eyebrow tone="dark">Jam buka</Eyebrow>
             </div>

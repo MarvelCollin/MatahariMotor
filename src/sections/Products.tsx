@@ -2,22 +2,20 @@ import Eyebrow from '../components/Eyebrow';
 import SectionIntro from '../components/SectionIntro';
 import { products } from '../data/products';
 import { stagger } from 'animejs';
-import { useStory } from '../lib/useStory';
+import { storyIntro, useStory } from '../lib/useStory';
 import { waLink } from '../lib/wa';
 
 const Products = () => {
   const root = useStory<HTMLElement>((timeline) => {
-    timeline
-      .add('.story-eyebrow', { opacity: [0, 1], x: [-16, 0] })
-      .add('.story-title', { opacity: [0, 1], y: [28, 0] }, '-=560')
-      .add('.story-body', { opacity: [0, 1], y: [20, 0] }, '-=520')
+    storyIntro(timeline)
       .add('.story-card', { opacity: [0, 1], y: [32, 0], duration: 720, delay: stagger(95) }, '-=420')
       .add('.story-shot', { scale: [1.08, 1], duration: 900, delay: stagger(95) }, '<<');
   });
 
   return (
-    <section id="products" ref={root} className="mx-auto max-w-6xl px-4 py-20 sm:px-6 md:py-28">
-      <div className="grid items-start gap-12 md:grid-cols-[minmax(0,1fr)_2fr] md:gap-16">
+    <section id="products" ref={root} className="relative overflow-hidden px-4 py-20 sm:px-6 md:py-28">
+      <div className="story-glow story-glow-brand" aria-hidden="true" />
+      <div className="relative z-10 mx-auto grid max-w-6xl items-start gap-12 md:grid-cols-[minmax(0,1fr)_2fr] md:gap-16">
         <SectionIntro eyebrow="Katalog" title="Produk di toko">
           <p className="mt-5 text-lg text-muted">Harga sesuai ukuran &amp; tipe motor. Tanya stok lewat WhatsApp.</p>
           <div className="mt-8 border-t border-line pt-5">

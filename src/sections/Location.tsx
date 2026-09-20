@@ -3,7 +3,7 @@ import Eyebrow from '../components/Eyebrow';
 import SectionIntro from '../components/SectionIntro';
 import { shop } from '../data/shop';
 import { hoursLine } from '../lib/hours';
-import { useStory } from '../lib/useStory';
+import { storyIntro, useStory } from '../lib/useStory';
 import { mapsEmbed, mapsLink, waLink } from '../lib/wa';
 
 const Row = ({ label, children }: { label: string; children: ReactNode }) => (
@@ -15,16 +15,17 @@ const Row = ({ label, children }: { label: string; children: ReactNode }) => (
 
 const Location = () => {
   const root = useStory<HTMLElement>((timeline) => {
-    timeline
-      .add('.story-eyebrow', { opacity: [0, 1], x: [-16, 0] })
-      .add('.story-title', { opacity: [0, 1], y: [28, 0] }, '-=560')
-      .add('.story-body', { opacity: [0, 1], y: [20, 0] }, '-=520')
-      .add('.story-map', { opacity: [0, 1], y: [28, 0], scale: [0.97, 1], duration: 900 }, '-=460');
+    storyIntro(timeline).add(
+      '.story-map',
+      { opacity: [0, 1], y: [28, 0], scale: [0.97, 1], duration: 900 },
+      '-=460',
+    );
   });
 
   return (
-    <section id="location" ref={root} className="mx-auto max-w-6xl px-4 py-20 sm:px-6 md:py-28">
-      <div className="grid items-start gap-12 md:grid-cols-[minmax(0,1fr)_2fr] md:gap-16">
+    <section id="location" ref={root} className="relative overflow-hidden px-4 py-20 sm:px-6 md:py-28">
+      <div className="story-glow story-glow-brand" aria-hidden="true" />
+      <div className="relative z-10 mx-auto grid max-w-6xl items-start gap-12 md:grid-cols-[minmax(0,1fr)_2fr] md:gap-16">
         <SectionIntro eyebrow="Kunjungi" title="Lokasi">
           <dl className="mt-8 border-t border-line">
             <Row label="Alamat">
