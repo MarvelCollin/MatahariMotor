@@ -5,6 +5,7 @@ import { stagger } from 'animejs';
 import { storyIntro, useStory } from '../lib/useStory';
 import { waLink } from '../lib/wa';
 import Eyebrow from './Eyebrow';
+import StoryBackdrop from './StoryBackdrop';
 
 const links = [
   { label: 'Produk', href: '#products' },
@@ -23,7 +24,7 @@ const Footer = () => {
 
   return (
     <footer ref={root} className="relative overflow-hidden bg-ink pb-24 text-white/70 md:pb-0">
-      <div className="story-glow" aria-hidden="true" />
+      <StoryBackdrop pattern="dots" />
       <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6">
         <div className="flex flex-wrap items-center justify-between gap-x-10 gap-y-6 py-14">
           <div>

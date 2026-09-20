@@ -55,24 +55,64 @@
   opacity: 0;
 }
 
+.story-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  --glow-tint: color-mix(in srgb, var(--color-sun) 6%, transparent);
+  --grid-tint: rgba(255, 255, 255, 0.07);
+  --rule-tint: var(--color-sun);
+}
+
+.story-backdrop-light {
+  --glow-tint: color-mix(in srgb, var(--color-brand) 4%, transparent);
+  --grid-tint: rgba(23, 20, 15, 0.07);
+  --rule-tint: var(--color-brand);
+}
+
 .story-glow {
   position: absolute;
   inset-inline: -15%;
   top: 0;
   height: 100%;
-  z-index: 0;
-  pointer-events: none;
   background: radial-gradient(55% 45% at 50% 18%, var(--glow-tint), transparent 68%);
   filter: blur(70px);
-  --glow-tint: color-mix(in srgb, var(--color-sun) 6%, transparent);
 }
 
-.story-glow-brand {
-  --glow-tint: color-mix(in srgb, var(--color-brand) 4%, transparent);
+.story-grid {
+  position: absolute;
+  inset: -12%;
+  mask-image: radial-gradient(62% 52% at 50% 38%, #000, transparent 76%);
+  -webkit-mask-image: radial-gradient(62% 52% at 50% 38%, #000, transparent 76%);
+}
+
+.story-grid-dots {
+  background-image: radial-gradient(circle, var(--grid-tint) 1px, transparent 1px);
+  background-size: 26px 26px;
+}
+
+.story-grid-grid {
+  background-image:
+    linear-gradient(to right, var(--grid-tint) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-tint) 1px, transparent 1px);
+  background-size: 58px 58px;
+}
+
+.story-rule {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 1px;
+  transform-origin: left center;
+  transform: scaleX(0);
+  opacity: 0.55;
+  background: linear-gradient(90deg, transparent, var(--rule-tint), transparent);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .story-glow {
+  .story-backdrop {
     display: none;
   }
 }

@@ -7,6 +7,27 @@ export const storyIntro = (timeline: Timeline) =>
     .add('.story-title', { opacity: [0, 1], y: [28, 0] }, '-=560')
     .add('.story-body', { opacity: [0, 1], y: [20, 0] }, '-=520');
 
+export const animateBackdrop = (el: HTMLElement) => {
+  if (!el.querySelector('.story-backdrop')) return;
+
+  const pass = (sync: number) =>
+    onScroll({ target: el, sync, enter: 'bottom top', leave: 'top bottom' });
+
+  animate('.story-glow', {
+    y: ['-12%', '12%'],
+    scale: [0.9, 1.15],
+    ease: 'linear',
+    autoplay: pass(0.4),
+  });
+
+  animate('.story-grid', {
+    y: ['-5%', '5%'],
+    scale: [1.08, 1],
+    ease: 'linear',
+    autoplay: pass(0.18),
+  });
+};
+
 const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 export const useStory = <T extends HTMLElement>(build: (timeline: Timeline) => void) => {
@@ -37,14 +58,11 @@ export const useStory = <T extends HTMLElement>(build: (timeline: Timeline) => v
       });
       builder.current(timeline);
 
-      if (el.querySelector('.story-glow')) {
-        animate('.story-glow', {
-          y: ['-12%', '12%'],
-          scale: [0.9, 1.15],
-          ease: 'linear',
-          autoplay: onScroll({ target: el, sync: 0.4, enter: 'bottom top', leave: 'top bottom' }),
-        });
+      if (el.querySelector('.story-rule')) {
+        timeline.add('.story-rule', { scaleX: [0, 1], ease: 'inOut(3)', duration: 1200 }, 0);
       }
+
+      animateBackdrop(el);
 
       const observer = new IntersectionObserver(
         ([entry]) => {

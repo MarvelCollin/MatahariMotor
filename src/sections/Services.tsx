@@ -1,4 +1,5 @@
 import SectionIntro from '../components/SectionIntro';
+import StoryBackdrop from '../components/StoryBackdrop';
 import { services } from '../data/services';
 import { stagger } from 'animejs';
 import { storyIntro, useStory } from '../lib/useStory';
@@ -13,7 +14,7 @@ const Services = () => {
 
   return (
     <section id="services" ref={root} className="relative overflow-hidden bg-ink text-white">
-      <div className="story-glow" aria-hidden="true" />
+      <StoryBackdrop pattern="grid" />
       <div className="relative z-10 mx-auto max-w-6xl px-4 py-20 sm:px-6 md:py-28">
         <div className="grid items-start gap-12 md:grid-cols-[minmax(0,1fr)_2fr] md:gap-16">
           <SectionIntro eyebrow="Bengkel" title="Servis" tone="dark">

@@ -1,6 +1,8 @@
 import { useLayoutEffect, useRef, type ReactNode } from 'react';
 import { animate, createScope, createDrawable, stagger, onScroll, type Scope } from 'animejs';
+import { animateBackdrop } from '../lib/useStory';
 import Eyebrow from '../components/Eyebrow';
+import StoryBackdrop from '../components/StoryBackdrop';
 import rim from '../assets/products/rim-vnd.webp';
 import { shop } from '../data/shop';
 import { hoursLine, todayStatus } from '../lib/hours';
@@ -114,11 +116,27 @@ const Fact = ({ label, visible, delay, children }: FactProps) => (
 const Hero = () => {
   const status = todayStatus();
   const mounted = useMounted();
+  const heroRef = useRef<HTMLElement>(null);
+  const heroScope = useRef<Scope | null>(null);
+
+  useLayoutEffect(() => {
+    const el = heroRef.current;
+    if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    heroScope.current = createScope({ root: heroRef }).add(() => {
+      animateBackdrop(el);
+      animate('.story-rule', { scaleX: [0, 1], ease: 'inOut(3)', duration: 1200, delay: 200 });
+    });
+
+    return () => heroScope.current?.revert();
+  }, []);
+
   const step = (i: number) => ({ transitionDelay: `${i * 90}ms` });
 
   return (
-    <section id="top" className="bg-ink text-white">
-      <div className="overflow-hidden">
+    <section id="top" ref={heroRef} className="relative overflow-hidden bg-ink text-white">
+      <StoryBackdrop pattern="dots" />
+      <div className="relative z-10 overflow-hidden">
         <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 pt-12 pb-14 sm:px-6 md:grid-cols-[1.1fr_1fr] md:pt-20 md:pb-16">
           <div>
             <h1
@@ -165,7 +183,7 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className="border-t border-white/10">
+      <div className="relative z-10 border-t border-white/10">
         <dl className="mx-auto grid max-w-6xl px-4 sm:grid-cols-3 sm:px-6">
           <Fact label="Alamat" visible={mounted} delay={420}>
             {shop.address}, {shop.city}
