@@ -3,7 +3,7 @@ import Eyebrow from '../components/Eyebrow';
 import SectionIntro from '../components/SectionIntro';
 import { shop } from '../data/shop';
 import { hoursLine } from '../lib/hours';
-import { revealClass, useInView } from '../lib/useInView';
+import { useStory } from '../lib/useStory';
 import { mapsEmbed, mapsLink, waLink } from '../lib/wa';
 
 const Row = ({ label, children }: { label: string; children: ReactNode }) => (
@@ -14,10 +14,16 @@ const Row = ({ label, children }: { label: string; children: ReactNode }) => (
 );
 
 const Location = () => {
-  const { ref, inView } = useInView<HTMLIFrameElement>();
+  const root = useStory<HTMLElement>((timeline) => {
+    timeline
+      .add('.story-eyebrow', { opacity: [0, 1], x: [-16, 0] })
+      .add('.story-title', { opacity: [0, 1], y: [28, 0] }, '-=560')
+      .add('.story-body', { opacity: [0, 1], y: [20, 0] }, '-=520')
+      .add('.story-map', { opacity: [0, 1], y: [28, 0], scale: [0.97, 1], duration: 900 }, '-=460');
+  });
 
   return (
-    <section id="location" className="mx-auto max-w-6xl px-4 py-20 sm:px-6 md:py-28">
+    <section id="location" ref={root} className="mx-auto max-w-6xl px-4 py-20 sm:px-6 md:py-28">
       <div className="grid items-start gap-12 md:grid-cols-[minmax(0,1fr)_2fr] md:gap-16">
         <SectionIntro eyebrow="Kunjungi" title="Lokasi">
           <dl className="mt-8 border-t border-line">
@@ -59,12 +65,11 @@ const Location = () => {
         </SectionIntro>
 
         <iframe
-          ref={ref}
           title="Peta lokasi Matahari Motor"
           src={mapsEmbed()}
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
-          className={`aspect-[4/3] w-full rounded-xl bg-tile ring-1 ring-ink/5 md:aspect-auto md:min-h-[34rem] ${revealClass(inView)}`}
+          className="story-map aspect-[4/3] w-full rounded-xl bg-tile ring-1 ring-ink/5 md:aspect-auto md:min-h-[34rem]"
         />
       </div>
     </section>

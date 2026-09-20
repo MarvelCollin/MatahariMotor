@@ -43,3 +43,12 @@
     scroll-behavior: auto;
   }
 }
+
+[data-story='out'] .story-eyebrow,
+[data-story='out'] .story-title,
+[data-story='out'] .story-body,
+[data-story='out'] .story-row,
+[data-story='out'] .story-card,
+[data-story='out'] .story-map {
+  opacity: 0;
+}
