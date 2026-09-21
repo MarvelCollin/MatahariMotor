@@ -5,7 +5,7 @@ import Eyebrow from '../components/Eyebrow';
 import StoryBackdrop from '../components/StoryBackdrop';
 import rim from '../assets/products/rim-vnd.webp';
 import { shop } from '../data/shop';
-import { hoursLine, todayStatus } from '../lib/hours';
+import { hoursLine } from '../lib/hours';
 import { revealClass, useMounted, zoomClass } from '../lib/useInView';
 import { waLink } from '../lib/wa';
 
@@ -114,7 +114,6 @@ const Fact = ({ label, visible, delay, children }: FactProps) => (
 );
 
 const Hero = () => {
-  const status = todayStatus();
   const mounted = useMounted();
   const heroRef = useRef<HTMLElement>(null);
   const heroScope = useRef<Scope | null>(null);
@@ -135,7 +134,7 @@ const Hero = () => {
 
   return (
     <section id="top" ref={heroRef} className="relative overflow-hidden bg-ink text-white">
-      <StoryBackdrop pattern="dots" />
+      <StoryBackdrop tone="dark" />
       <div className="relative z-10 overflow-hidden">
         <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 pt-12 pb-14 sm:px-6 md:grid-cols-[1.1fr_1fr] md:pt-20 md:pb-16">
           <div>
@@ -163,17 +162,6 @@ const Hero = () => {
               >
                 Lihat produk
               </a>
-            </div>
-            <div style={step(3)} className={`mt-7 ${revealClass(mounted)}`}>
-              <p className="inline-flex items-center gap-2.5 rounded-full py-1.5 pr-4 pl-3 text-sm text-white/80 ring-1 ring-white/15">
-                <span className="relative flex h-2 w-2" aria-hidden="true">
-                  {status.open && (
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-60 motion-reduce:hidden" />
-                  )}
-                  <span className={`relative h-2 w-2 rounded-full ${status.open ? 'bg-green-400' : 'bg-white/40'}`} />
-                </span>
-                {status.text}
-              </p>
             </div>
           </div>
 
