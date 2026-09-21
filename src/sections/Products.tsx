@@ -15,7 +15,7 @@ const Products = () => {
 
   return (
     <section id="products" ref={root} className="relative overflow-hidden px-4 py-20 sm:px-6 md:py-28">
-      <StoryBackdrop tone="light" pattern="dots" />
+      <StoryBackdrop tone="light" seam="dark" />
       <div className="relative z-10 mx-auto grid max-w-6xl items-start gap-12 md:grid-cols-[minmax(0,1fr)_2fr] md:gap-16">
         <SectionIntro eyebrow="Katalog" title="Produk di toko">
           <p className="mt-5 text-lg text-muted">Harga sesuai ukuran &amp; tipe motor. Tanya stok lewat WhatsApp.</p>

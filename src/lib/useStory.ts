@@ -8,23 +8,29 @@ export const storyIntro = (timeline: Timeline) =>
     .add('.story-body', { opacity: [0, 1], y: [20, 0] }, '-=520');
 
 export const animateBackdrop = (el: HTMLElement) => {
-  if (!el.querySelector('.story-backdrop')) return;
+  if (!el.querySelector('.road')) return;
 
   const pass = (sync: number) =>
     onScroll({ target: el, sync, enter: 'bottom top', leave: 'top bottom' });
 
-  animate('.story-glow', {
-    y: ['-12%', '12%'],
-    scale: [0.9, 1.15],
+  animate('.road-plane', {
+    rotateX: [76, 64],
+    ease: 'linear',
+    autoplay: pass(0.5),
+  });
+
+  animate('.road-beam', {
+    y: ['10%', '-10%'],
+    scale: [0.88, 1.18],
     ease: 'linear',
     autoplay: pass(0.4),
   });
 
-  animate('.story-grid', {
-    y: ['-5%', '5%'],
-    scale: [1.08, 1],
+  animate('.road-haze', {
+    y: ['-8%', '8%'],
+    opacity: [0.5, 1],
     ease: 'linear',
-    autoplay: pass(0.18),
+    autoplay: pass(0.2),
   });
 };
 

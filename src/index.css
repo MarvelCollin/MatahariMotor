@@ -7,10 +7,13 @@
   --color-paper-deep: #e4dccb;
   --color-ink: #17140f;
   --color-ink-soft: #4d463b;
+  --color-muted: #6b6255;
+  --color-line: #ded5c4;
+  --color-tile: #e7e1d4;
   --color-sun: #eca81c;
   --color-brand: #c62a1f;
   --color-brand-dark: #a32118;
-  --font-display: "Big Shoulders Display Variable", "Arial Narrow", sans-serif;
+  --font-head: "Big Shoulders Display Variable", "Arial Narrow", sans-serif;
   --font-sans: "Schibsted Grotesk Variable", system-ui, sans-serif;
 }
 
@@ -18,6 +21,9 @@
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 4.5rem;
+    --road-shift: 0;
+    --road-speed: 0;
+    --road-progress: 0;
   }
 
   body {
@@ -55,49 +61,156 @@
   opacity: 0;
 }
 
-.story-backdrop {
+.road {
   position: absolute;
   inset: 0;
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
-  --glow-tint: color-mix(in srgb, var(--color-sun) 6%, transparent);
-  --grid-tint: rgba(255, 255, 255, 0.07);
-  --rule-tint: var(--color-sun);
+  contain: layout paint style;
 }
 
-.story-backdrop-light {
-  --glow-tint: color-mix(in srgb, var(--color-brand) 4%, transparent);
-  --grid-tint: rgba(23, 20, 15, 0.07);
-  --rule-tint: var(--color-brand);
+.road[data-tone='dark'] {
+  --road-bg: var(--color-ink);
+  --road-line: rgba(255, 255, 255, 0.34);
+  --road-tie: rgba(255, 255, 255, 0.1);
+  --road-beam-tint: color-mix(in srgb, var(--color-sun) 22%, transparent);
+  --road-beam-at: 50% 108%;
+  --road-haze-tint: color-mix(in srgb, var(--color-brand) 22%, transparent);
+  --road-grain: 0.055;
 }
 
-.story-glow {
+.road[data-tone='light'] {
+  --road-bg: var(--color-paper);
+  --road-line: rgba(23, 20, 15, 0.16);
+  --road-tie: rgba(23, 20, 15, 0.07);
+  --road-beam-tint: color-mix(in srgb, var(--color-sun) 30%, transparent);
+  --road-beam-at: 50% -8%;
+  --road-haze-tint: color-mix(in srgb, var(--color-sun) 26%, transparent);
+  --road-grain: 0.04;
+}
+
+.road-haze {
   position: absolute;
-  inset-inline: -15%;
+  inset-inline: -10%;
   top: 0;
-  height: 100%;
-  background: radial-gradient(55% 45% at 50% 18%, var(--glow-tint), transparent 68%);
-  filter: blur(70px);
+  height: 62%;
+  background: radial-gradient(58% 100% at 50% 6%, var(--road-haze-tint), transparent 72%);
+  filter: blur(26px);
 }
 
-.story-grid {
+.road-stage {
   position: absolute;
-  inset: -12%;
-  mask-image: radial-gradient(62% 52% at 50% 38%, #000, transparent 76%);
-  -webkit-mask-image: radial-gradient(62% 52% at 50% 38%, #000, transparent 76%);
+  bottom: -10%;
+  left: 50%;
+  width: 190%;
+  height: 118%;
+  opacity: 0.85;
+  transform: translateX(-50%);
+  perspective: 560px;
+  perspective-origin: 50% 0%;
 }
 
-.story-grid-dots {
-  background-image: radial-gradient(circle, var(--grid-tint) 1px, transparent 1px);
-  background-size: 26px 26px;
+.road-plane {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 100%;
+  transform: rotateX(70deg);
 }
 
-.story-grid-grid {
+.road-ties {
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    var(--road-tie) 0 2px,
+    transparent 2px 108px
+  );
+  background-position: 0 calc(var(--road-shift) * 1px);
+}
+
+.road-edge {
+  position: absolute;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  background: var(--road-line);
+  opacity: 0.55;
+}
+
+.road-edge-left {
+  left: 38%;
+}
+
+.road-edge-right {
+  right: 38%;
+}
+
+.road-dashes {
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    var(--road-line) 0 54px,
+    transparent 54px 168px
+  );
+  background-size: 10px 168px;
+  background-repeat: repeat-y;
+  background-position: 50% calc(var(--road-shift) * 1px);
+}
+
+.road-fade {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 58%;
+  background: linear-gradient(to bottom, var(--road-bg) 34%, transparent);
+}
+
+.road-beam {
+  position: absolute;
+  inset-inline: -18%;
+  top: -20%;
+  height: 140%;
+  background: radial-gradient(42% 54% at var(--road-beam-at), var(--road-beam-tint), transparent 72%);
+  filter: blur(28px);
+}
+
+.road-streaks {
+  position: absolute;
+  inset: 0;
+  opacity: calc(var(--road-speed) * 0.7);
   background-image:
-    linear-gradient(to right, var(--grid-tint) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--grid-tint) 1px, transparent 1px);
-  background-size: 58px 58px;
+    linear-gradient(to right, var(--road-line), transparent 12%),
+    linear-gradient(to left, var(--road-line), transparent 12%);
+  mask-image: repeating-linear-gradient(to bottom, #000 0 34px, transparent 34px 120px);
+  -webkit-mask-image: repeating-linear-gradient(to bottom, #000 0 34px, transparent 34px 120px);
+  mask-position: 0 calc(var(--road-shift) * -1.6px);
+  -webkit-mask-position: 0 calc(var(--road-shift) * -1.6px);
+  filter: blur(2px);
+}
+
+.road-grain {
+  position: absolute;
+  inset: 0;
+  opacity: var(--road-grain);
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.road-seam {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 11rem;
+}
+
+.road-seam-dark {
+  background: linear-gradient(to bottom, var(--color-ink), transparent);
+}
+
+.road-seam-light {
+  background: linear-gradient(to bottom, var(--color-paper), transparent);
 }
 
 .story-rule {
@@ -108,11 +221,17 @@
   transform-origin: left center;
   transform: scaleX(0);
   opacity: 0.55;
-  background: linear-gradient(90deg, transparent, var(--rule-tint), transparent);
+  background: linear-gradient(90deg, transparent, var(--color-sun), transparent);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .story-backdrop {
+  .road-ties,
+  .road-dashes,
+  .road-streaks {
     display: none;
+  }
+
+  .road-plane {
+    transform: rotateX(74deg);
   }
 }

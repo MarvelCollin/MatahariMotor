@@ -25,7 +25,7 @@ const Location = () => {
 
   return (
     <section id="location" ref={root} className="relative overflow-hidden px-4 py-20 sm:px-6 md:py-28">
-      <StoryBackdrop tone="light" pattern="grid" />
+      <StoryBackdrop tone="light" />
       <div className="relative z-10 mx-auto grid max-w-6xl items-start gap-12 md:grid-cols-[minmax(0,1fr)_2fr] md:gap-16">
         <SectionIntro eyebrow="Kunjungi" title="Lokasi">
           <dl className="mt-8 border-t border-line">

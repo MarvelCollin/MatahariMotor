@@ -14,7 +14,7 @@ const Services = () => {
 
   return (
     <section id="services" ref={root} className="relative overflow-hidden bg-ink text-white">
-      <StoryBackdrop pattern="grid" />
+      <StoryBackdrop tone="dark" />
       <div className="relative z-10 mx-auto max-w-6xl px-4 py-20 sm:px-6 md:py-28">
         <div className="grid items-start gap-12 md:grid-cols-[minmax(0,1fr)_2fr] md:gap-16">
           <SectionIntro eyebrow="Bengkel" title="Servis" tone="dark">
