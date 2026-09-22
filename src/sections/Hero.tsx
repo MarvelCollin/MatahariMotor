@@ -5,7 +5,7 @@ import Eyebrow from '../components/Eyebrow';
 import StoryBackdrop from '../components/StoryBackdrop';
 import rim from '../assets/products/rim-vnd.webp';
 import { shop } from '../data/shop';
-import { hoursLine, todayStatus } from '../lib/hours';
+import { hoursLine } from '../lib/hours';
 import { revealClass, useMounted, zoomClass } from '../lib/useInView';
 import { waLink } from '../lib/wa';
 
@@ -67,7 +67,7 @@ const Speedo = () => {
   }, []);
 
   return (
-    <div ref={root} className="story-speedo relative mx-auto aspect-square w-full max-w-[30rem]">
+    <div ref={root} className="story-speedo relative aspect-square w-full">
       <svg viewBox="0 0 400 400" className="absolute inset-0 h-full w-full" aria-hidden="true">
         <path className="arc" d="M200 20 A180 180 0 0 1 380 200" fill="none" stroke="var(--color-sun)" strokeWidth="12" />
         <path className="arc" d="M380 200 A180 180 0 0 1 200 380" fill="none" stroke="var(--color-brand)" strokeWidth="12" />
@@ -99,12 +99,12 @@ const Speedo = () => {
   );
 };
 
-type FactProps = { label: string; visible: boolean; delay: number; children: ReactNode };
+type FactProps = { label: string; visible: boolean; delay: number; align?: 'left' | 'right'; children: ReactNode };
 
-const Fact = ({ label, visible, delay, children }: FactProps) => (
+const Fact = ({ label, visible, delay, align = 'left', children }: FactProps) => (
   <div
     style={{ transitionDelay: `${delay}ms` }}
-    className={`border-t border-white/10 py-5 first:border-t-0 sm:border-t-0 sm:border-l sm:py-6 sm:pl-6 sm:first:border-l-0 sm:first:pl-0 ${revealClass(visible, true)}`}
+    className={`${align === 'right' ? 'md:text-right [&_dt]:md:justify-end' : ''} ${revealClass(visible, true)}`}
   >
     <Eyebrow as="dt" tone="dark">
       {label}
@@ -114,7 +114,6 @@ const Fact = ({ label, visible, delay, children }: FactProps) => (
 );
 
 const Hero = () => {
-  const status = todayStatus();
   const mounted = useMounted();
   const heroRef = useRef<HTMLElement>(null);
   const heroScope = useRef<Scope | null>(null);
@@ -136,68 +135,62 @@ const Hero = () => {
   return (
     <section id="top" ref={heroRef} className="relative overflow-hidden bg-ink text-white">
       <StoryBackdrop pattern="dots" />
-      <div className="relative z-10 overflow-hidden">
-        <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 pt-12 pb-14 sm:px-6 md:grid-cols-[1.1fr_1fr] md:pt-20 md:pb-16">
-          <div>
-            <h1
-              style={step(0)}
-              className={`text-[clamp(2.6rem,7vw,4.75rem)] leading-[1.02] font-extrabold ${revealClass(mounted)}`}
-            >
-              Sparepart &amp; bengkel motor di <span className="text-sun">{shop.city}</span>
-            </h1>
-            <p style={step(1)} className={`mt-6 max-w-md text-lg text-white/70 ${revealClass(mounted)}`}>
-              Ban, velg, shock, stang, oli, dan lainnya. Beli di toko, bisa langsung dipasang.
-            </p>
-            <div style={step(2)} className={`mt-8 flex flex-wrap gap-3 ${revealClass(mounted)}`}>
-              <a
-                href={waLink('Halo Matahari Motor, saya mau tanya stok sparepart.')}
-                target="_blank"
-                rel="noreferrer"
-                className="rounded-md bg-brand px-5 py-3 font-medium transition-colors hover:bg-brand-dark"
-              >
-                Tanya stok via WhatsApp
-              </a>
-              <a
-                href="#products"
-                className="rounded-md px-5 py-3 font-medium ring-1 ring-white/30 transition-colors hover:bg-white/10"
-              >
-                Lihat produk
-              </a>
-            </div>
-            <div style={step(3)} className={`mt-7 ${revealClass(mounted)}`}>
-              <p className="inline-flex items-center gap-2.5 rounded-full py-1.5 pr-4 pl-3 text-sm text-white/80 ring-1 ring-white/15">
-                <span className="relative flex h-2 w-2" aria-hidden="true">
-                  {status.open && (
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-60 motion-reduce:hidden" />
-                  )}
-                  <span className={`relative h-2 w-2 rounded-full ${status.open ? 'bg-green-400' : 'bg-white/40'}`} />
-                </span>
-                {status.text}
-              </p>
-            </div>
-          </div>
+      <div className="relative z-10 mx-auto max-w-6xl px-4 pt-12 text-center sm:px-6 md:pt-20">
+        <h1
+          style={step(1)}
+          className={`mx-auto max-w-5xl text-[clamp(2.75rem,9vw,7.25rem)] leading-[0.92] font-extrabold tracking-[-0.02em] uppercase ${revealClass(mounted)}`}
+        >
+          Sparepart <span className="text-sun">&amp;</span> bengkel motor{' '}
+          <span className="text-sun">{shop.city}</span>
+        </h1>
 
-          <div style={step(1)} className={zoomClass(mounted)}>
-            <Speedo />
-          </div>
+        <p style={step(2)} className={`mx-auto mt-6 max-w-md text-lg text-white/70 ${revealClass(mounted)}`}>
+          Ban, velg, shock, stang, oli, dan lainnya. Beli di toko, bisa langsung dipasang.
+        </p>
+
+        <div style={step(3)} className={`mt-8 flex flex-wrap justify-center gap-3 ${revealClass(mounted)}`}>
+          <a
+            href={waLink('Halo Matahari Motor, saya mau tanya stok sparepart.')}
+            target="_blank"
+            rel="noreferrer"
+            className="rounded-md bg-brand px-5 py-3 font-medium transition-colors hover:bg-brand-dark"
+          >
+            Tanya stok via WhatsApp
+          </a>
+          <a
+            href="#products"
+            className="rounded-md px-5 py-3 font-medium ring-1 ring-white/30 transition-colors hover:bg-white/10"
+          >
+            Lihat produk
+          </a>
         </div>
       </div>
 
-      <div className="relative z-10 border-t border-white/10">
-        <dl className="mx-auto grid max-w-6xl px-4 sm:grid-cols-3 sm:px-6">
-          <Fact label="Alamat" visible={mounted} delay={420}>
-            {shop.address}, {shop.city}
-          </Fact>
-          <Fact label="Jam buka" visible={mounted} delay={500}>
-            {hoursLine}
-          </Fact>
-          <Fact label="WhatsApp" visible={mounted} delay={580}>
-            <a href={`tel:+${shop.whatsapp}`} className="transition-colors hover:text-sun">
-              {shop.phoneDisplay}
-            </a>
-          </Fact>
-        </dl>
+      <div className="relative z-10 mx-auto mt-12 max-w-6xl px-4 sm:px-6 md:mt-16">
+        <div className="grid items-end gap-x-10 md:grid-cols-[1fr_auto_1fr]">
+          <div style={step(2)} className={`md:order-2 ${zoomClass(mounted)}`}>
+            <div className="mx-auto aspect-[2/1] w-[clamp(18rem,58vw,34rem)] overflow-hidden">
+              <Speedo />
+            </div>
+          </div>
+          <dl className="grid gap-6 border-t border-white/15 py-6 text-left md:order-1 md:border-t-0 md:pb-8">
+            <Fact label="Alamat" visible={mounted} delay={420}>
+              {shop.address}, {shop.city}
+            </Fact>
+          </dl>
+          <dl className="grid gap-6 pb-8 text-left md:order-3 md:py-6 md:pb-8">
+            <Fact label="Jam buka" visible={mounted} delay={500} align="right">
+              {hoursLine}
+            </Fact>
+            <Fact label="WhatsApp" visible={mounted} delay={580} align="right">
+              <a href={`tel:+${shop.whatsapp}`} className="transition-colors hover:text-sun">
+                {shop.phoneDisplay}
+              </a>
+            </Fact>
+          </dl>
+        </div>
       </div>
+      <div className="relative z-10 h-px bg-white/15" aria-hidden="true" />
     </section>
   );
 };
