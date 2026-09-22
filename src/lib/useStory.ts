@@ -15,14 +15,12 @@ export const animateBackdrop = (el: HTMLElement) => {
 
   animate('.story-glow', {
     y: ['-12%', '12%'],
-    scale: [0.9, 1.15],
     ease: 'linear',
     autoplay: pass(0.4),
   });
 
   animate('.story-grid', {
     y: ['-5%', '5%'],
-    scale: [1.08, 1],
     ease: 'linear',
     autoplay: pass(0.18),
   });

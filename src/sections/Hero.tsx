@@ -93,7 +93,7 @@ const Speedo = () => {
         alt="Velg racing VND, dijual di toko"
         width={277}
         height={278}
-        className="rim absolute inset-[19%] h-[62%] w-[62%] object-contain drop-shadow-[0_18px_24px_rgba(0,0,0,0.45)]"
+        className="rim absolute inset-[19%] h-[62%] w-[62%] object-contain will-change-transform"
       />
     </div>
   );

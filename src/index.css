@@ -61,6 +61,7 @@
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
+  contain: strict;
   --glow-tint: color-mix(in srgb, var(--color-sun) 6%, transparent);
   --grid-tint: rgba(255, 255, 255, 0.07);
   --rule-tint: var(--color-sun);
@@ -79,6 +80,7 @@
   height: 100%;
   background: radial-gradient(55% 45% at 50% 18%, var(--glow-tint), transparent 68%);
   filter: blur(70px);
+  will-change: transform;
 }
 
 .story-grid {
@@ -86,6 +88,7 @@
   inset: -12%;
   mask-image: radial-gradient(62% 52% at 50% 38%, #000, transparent 76%);
   -webkit-mask-image: radial-gradient(62% 52% at 50% 38%, #000, transparent 76%);
+  will-change: transform;
 }
 
 .story-grid-dots {
