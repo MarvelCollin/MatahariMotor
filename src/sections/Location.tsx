@@ -4,7 +4,7 @@ import SectionIntro from '../components/SectionIntro';
 import StoryBackdrop from '../components/StoryBackdrop';
 import { shop } from '../data/shop';
 import { hoursLine } from '../lib/hours';
-import { storyIntro, useStory } from '../lib/useStory';
+import { useStory } from '../lib/useStory';
 import { mapsEmbed, mapsLink, waLink } from '../lib/wa';
 
 const Row = ({ label, children }: { label: string; children: ReactNode }) => (
@@ -15,13 +15,7 @@ const Row = ({ label, children }: { label: string; children: ReactNode }) => (
 );
 
 const Location = () => {
-  const root = useStory<HTMLElement>((timeline) => {
-    storyIntro(timeline).add(
-      '.story-map',
-      { opacity: [0, 1], y: [28, 0], scale: [0.97, 1], duration: 900 },
-      '-=460',
-    );
-  });
+  const root = useStory<HTMLElement>();
 
   return (
     <section id="location" ref={root} className="relative overflow-hidden px-4 py-20 sm:px-6 md:py-28">

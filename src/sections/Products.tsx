@@ -2,16 +2,11 @@ import Eyebrow from '../components/Eyebrow';
 import SectionIntro from '../components/SectionIntro';
 import StoryBackdrop from '../components/StoryBackdrop';
 import { products } from '../data/products';
-import { stagger } from 'animejs';
-import { storyIntro, useStory } from '../lib/useStory';
+import { useStory } from '../lib/useStory';
 import { waLink } from '../lib/wa';
 
 const Products = () => {
-  const root = useStory<HTMLElement>((timeline) => {
-    storyIntro(timeline)
-      .add('.story-card', { opacity: [0, 1], y: [32, 0], duration: 720, delay: stagger(95) }, '-=420')
-      .add('.story-shot', { scale: [1.08, 1], duration: 900, delay: stagger(95) }, '<<');
-  });
+  const root = useStory<HTMLElement>();
 
   return (
     <section id="products" ref={root} className="relative overflow-hidden px-4 py-20 sm:px-6 md:py-28">
@@ -44,7 +39,7 @@ const Products = () => {
                   width={p.width}
                   height={p.height}
                   loading="lazy"
-                  className="story-shot absolute inset-[13%] h-[74%] w-[74%] object-contain transition-transform duration-300 group-hover:scale-[1.05] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                  className="absolute inset-[13%] h-[74%] w-[74%] object-contain transition-transform duration-300 group-hover:scale-[1.05] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                 />
               </div>
               <h3 className="mt-4 text-lg leading-snug font-bold sm:text-xl">{p.name}</h3>

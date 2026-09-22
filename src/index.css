@@ -44,15 +44,46 @@
   }
 }
 
-[data-story='out'] .story-eyebrow,
-[data-story='out'] .story-title,
-[data-story='out'] .story-body,
-[data-story='out'] .story-row,
-[data-story='out'] .story-num,
-[data-story='out'] .story-card,
-[data-story='out'] .story-map,
+section,
+footer {
+  view-timeline-name: --story;
+}
+
+.story-title {
+  --delay: 120ms;
+}
+
+.story-body {
+  --delay: 240ms;
+}
+
+.story-row,
+.story-card {
+  --delay: calc(320ms + var(--i, 0) * 70ms);
+}
+
+.story-map {
+  --delay: 240ms;
+}
+
+[data-story='in'] :is(.story-eyebrow, .story-title, .story-body, .story-row, .story-card, .story-map) {
+  transition-property: opacity, translate;
+  transition-duration: 600ms;
+  transition-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
+  transition-delay: var(--delay, 0ms);
+}
+
+[data-story='out'] :is(.story-eyebrow, .story-title, .story-body, .story-row, .story-card, .story-map),
 .story-speedo[data-story='out'] {
   opacity: 0;
+}
+
+[data-story='out'] .story-eyebrow {
+  translate: -12px 0;
+}
+
+[data-story='out'] :is(.story-title, .story-body, .story-row, .story-card, .story-map) {
+  translate: 0 20px;
 }
 
 .story-backdrop {
@@ -109,9 +140,64 @@
   top: 0;
   height: 1px;
   transform-origin: left center;
-  transform: scaleX(0);
   opacity: 0.55;
   background: linear-gradient(90deg, transparent, var(--rule-tint), transparent);
+}
+
+[data-story='out'] .story-rule {
+  transform: scaleX(0);
+}
+
+[data-story='in'] .story-rule {
+  transition: transform 1200ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+@keyframes story-glow {
+  from {
+    translate: 0 -12%;
+  }
+  to {
+    translate: 0 12%;
+  }
+}
+
+@keyframes story-grid {
+  from {
+    translate: 0 -5%;
+  }
+  to {
+    translate: 0 5%;
+  }
+}
+
+@keyframes rim-spin {
+  to {
+    rotate: 540deg;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .story-glow,
+    .story-grid,
+    .rim {
+      animation: linear both;
+      animation-timeline: --story;
+      animation-range: cover;
+    }
+
+    .story-glow {
+      animation-name: story-glow;
+    }
+
+    .story-grid {
+      animation-name: story-grid;
+    }
+
+    .rim {
+      animation-name: rim-spin;
+    }
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

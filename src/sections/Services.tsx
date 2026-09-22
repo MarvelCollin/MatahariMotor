@@ -1,16 +1,11 @@
 import SectionIntro from '../components/SectionIntro';
 import StoryBackdrop from '../components/StoryBackdrop';
 import { services } from '../data/services';
-import { stagger } from 'animejs';
-import { storyIntro, useStory } from '../lib/useStory';
+import { useStory } from '../lib/useStory';
 import { waLink } from '../lib/wa';
 
 const Services = () => {
-  const root = useStory<HTMLElement>((timeline) => {
-    storyIntro(timeline)
-      .add('.story-row', { opacity: [0, 1], y: [24, 0], duration: 680, delay: stagger(90) }, '-=420')
-      .add('.story-num', { opacity: [0, 1], scale: [0.6, 1], duration: 560, delay: stagger(90) }, '<<+=140');
-  });
+  const root = useStory<HTMLElement>();
 
   return (
     <section id="services" ref={root} className="relative overflow-hidden bg-ink text-white">
@@ -38,7 +33,7 @@ const Services = () => {
           <dl>
             {services.map((s, i) => (
               <div key={s.name} className="story-row flex gap-5 border-t border-white/10 py-5 last:border-b">
-                <span className="story-num mt-1.5 font-head text-xs font-bold text-sun tabular-nums">
+                <span className="mt-1.5 font-head text-xs font-bold text-sun tabular-nums">
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <div>

@@ -1,6 +1,5 @@
 import { useLayoutEffect, useRef, type ReactNode } from 'react';
-import { animate, createScope, createDrawable, stagger, onScroll, type Scope } from 'animejs';
-import { animateBackdrop } from '../lib/useStory';
+import { animate, createScope, createDrawable, stagger, type Scope } from 'animejs';
 import Eyebrow from '../components/Eyebrow';
 import StoryBackdrop from '../components/StoryBackdrop';
 import rim from '../assets/products/rim-vnd.webp';
@@ -56,11 +55,6 @@ const Speedo = () => {
         ease: 'out(4)',
       });
 
-      animate('.rim', {
-        rotate: 540,
-        ease: 'linear',
-        autoplay: onScroll({ sync: 0.35, enter: 'bottom top', leave: 'top bottom' }),
-      });
     });
 
     return () => scope.current?.revert();
@@ -115,25 +109,10 @@ const Fact = ({ label, visible, delay, align = 'left', children }: FactProps) =>
 
 const Hero = () => {
   const mounted = useMounted();
-  const heroRef = useRef<HTMLElement>(null);
-  const heroScope = useRef<Scope | null>(null);
-
-  useLayoutEffect(() => {
-    const el = heroRef.current;
-    if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    heroScope.current = createScope({ root: heroRef }).add(() => {
-      animateBackdrop(el);
-      animate('.story-rule', { scaleX: [0, 1], ease: 'inOut(3)', duration: 1200, delay: 200 });
-    });
-
-    return () => heroScope.current?.revert();
-  }, []);
-
   const step = (i: number) => ({ transitionDelay: `${i * 90}ms` });
 
   return (
-    <section id="top" ref={heroRef} className="relative overflow-hidden bg-ink text-white">
+    <section id="top" className="relative overflow-hidden bg-ink text-white">
       <StoryBackdrop pattern="dots" />
       <div className="relative z-10 mx-auto max-w-6xl px-4 pt-12 text-center sm:px-6 md:pt-20">
         <h1

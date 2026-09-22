@@ -1,8 +1,7 @@
 import logo from '../assets/logo.webp';
 import { shop } from '../data/shop';
 import { hoursLine } from '../lib/hours';
-import { stagger } from 'animejs';
-import { storyIntro, useStory } from '../lib/useStory';
+import { useStory } from '../lib/useStory';
 import { waLink } from '../lib/wa';
 import Eyebrow from './Eyebrow';
 import StoryBackdrop from './StoryBackdrop';
@@ -14,13 +13,7 @@ const links = [
 ];
 
 const Footer = () => {
-  const root = useStory<HTMLElement>((timeline) => {
-    storyIntro(timeline).add(
-      '.story-row',
-      { opacity: [0, 1], y: [20, 0], duration: 640, delay: stagger(90) },
-      '-=420',
-    );
-  });
+  const root = useStory<HTMLElement>();
 
   return (
     <footer ref={root} className="relative overflow-hidden bg-ink pb-24 text-white/70 md:pb-0">
