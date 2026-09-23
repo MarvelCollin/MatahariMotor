@@ -75,7 +75,7 @@ const Footer = () => {
           <a href={`tel:+${shop.whatsapp}`} className="text-white transition-colors hover:text-sun">
             {shop.phoneDisplay}
           </a>
-          <span>
+          <span suppressHydrationWarning>
             © {new Date().getFullYear()} {shop.name}
           </span>
         </div>
