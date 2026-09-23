@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import logo from '../assets/logo.webp';
+import logo from '../assets/logo-80.webp?no-inline';
 import { waLink } from '../lib/wa';
 
 const links = [

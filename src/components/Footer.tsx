@@ -1,4 +1,4 @@
-import logo from '../assets/logo.webp';
+import logo from '../assets/logo-80.webp?no-inline';
 import { shop } from '../data/shop';
 import { hoursLine } from '../lib/hours';
 import { useStory } from '../lib/useStory';
