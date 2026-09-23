@@ -30,19 +30,19 @@ const Services = () => {
             </a>
           </SectionIntro>
 
-          <dl>
+          <ul>
             {services.map((s, i) => (
-              <div key={s.name} className="story-row flex gap-5 border-t border-white/10 py-5 last:border-b">
-                <span className="mt-1.5 font-head text-xs font-bold text-sun tabular-nums">
+              <li key={s.name} className="story-row flex gap-5 border-t border-white/10 py-5 last:border-b">
+                <span aria-hidden="true" className="mt-1.5 font-head text-xs font-bold text-sun tabular-nums">
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <div>
-                  <dt className="font-head text-lg leading-snug font-bold sm:text-xl">{s.name}</dt>
-                  <dd className="mt-1.5 text-white/60">{s.items.join(' · ')}</dd>
+                  <h3 className="font-head text-lg leading-snug font-bold sm:text-xl">{s.name}</h3>
+                  <p className="mt-1.5 text-white/60">{s.items.join(' · ')}</p>
                 </div>
-              </div>
+              </li>
             ))}
-          </dl>
+          </ul>
         </div>
       </div>
     </section>
