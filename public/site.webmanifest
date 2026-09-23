@@ -1,0 +1,13 @@
+{
+  "name": "Matahari Motor Sintang",
+  "short_name": "Matahari Motor",
+  "lang": "id",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f1ece2",
+  "theme_color": "#f1ece2",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-256.png", "sizes": "256x256", "type": "image/png" }
+  ]
+}
