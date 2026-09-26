@@ -13,8 +13,43 @@
   --color-sun: #eca81c;
   --color-brand: #c62a1f;
   --color-brand-dark: #a32118;
-  --font-head: "Big Shoulders Display Variable", "Arial Narrow", sans-serif;
-  --font-sans: "Schibsted Grotesk Variable", system-ui, sans-serif;
+  --font-head: "Big Shoulders Display Variable", "Big Shoulders Fallback", "Arial Narrow", sans-serif;
+  --font-sans: "Schibsted Grotesk Variable", "Schibsted Fallback", system-ui, sans-serif;
+}
+
+@font-face {
+  font-family: "Schibsted Fallback";
+  src: local("Arial"), local("ArialMT"), local("Roboto"), local("Roboto-Regular"), local("Helvetica"), local("Liberation Sans");
+  font-weight: 100 550;
+  size-adjust: 102.3%;
+}
+
+@font-face {
+  font-family: "Schibsted Fallback";
+  src: local("Arial Bold"), local("Arial-BoldMT"), local("Roboto Bold"), local("Roboto-Bold"), local("Helvetica Bold"), local("Liberation Sans Bold");
+  font-weight: 551 1000;
+  size-adjust: 102.9%;
+}
+
+@font-face {
+  font-family: "Big Shoulders Fallback";
+  src: local("Arial Bold"), local("Arial-BoldMT"), local("Roboto Bold"), local("Roboto-Bold"), local("Helvetica Bold"), local("Liberation Sans Bold");
+  font-weight: 100 650;
+  size-adjust: 65.7%;
+}
+
+@font-face {
+  font-family: "Big Shoulders Fallback";
+  src: local("Arial Bold"), local("Arial-BoldMT"), local("Roboto Bold"), local("Roboto-Bold"), local("Helvetica Bold"), local("Liberation Sans Bold");
+  font-weight: 651 750;
+  size-adjust: 70.6%;
+}
+
+@font-face {
+  font-family: "Big Shoulders Fallback";
+  src: local("Arial Bold"), local("Arial-BoldMT"), local("Roboto Bold"), local("Roboto-Bold"), local("Helvetica Bold"), local("Liberation Sans Bold");
+  font-weight: 751 1000;
+  size-adjust: 75.9%;
 }
 
 @layer base {
