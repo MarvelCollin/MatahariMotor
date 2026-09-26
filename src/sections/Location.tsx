@@ -14,7 +14,7 @@ const Row = ({ label, children }: { label: string; children: ReactNode }) => (
 );
 
 const Location = () => (
-  <section id="location" className="story relative overflow-hidden px-4 py-20 sm:px-6 md:py-28">
+  <section id="location" className="story relative overflow-clip px-4 py-20 sm:px-6 md:py-28">
     <StoryBackdrop tone="light" pattern="grid" />
     <div className="relative z-10 mx-auto grid max-w-6xl items-start gap-12 md:grid-cols-[minmax(0,1fr)_2fr] md:gap-16">
       <SectionIntro eyebrow="Kunjungi" title="Lokasi">

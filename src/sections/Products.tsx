@@ -5,7 +5,7 @@ import { products } from '../data/products';
 import { waLink } from '../lib/wa';
 
 const Products = () => (
-  <section id="products" className="story relative overflow-hidden px-4 py-20 sm:px-6 md:py-28">
+  <section id="products" className="story relative overflow-clip px-4 py-20 sm:px-6 md:py-28">
     <StoryBackdrop tone="light" pattern="dots" />
     <div className="relative z-10 mx-auto grid max-w-6xl items-start gap-12 md:grid-cols-[minmax(0,1fr)_2fr] md:gap-16">
       <SectionIntro eyebrow="Katalog" title="Produk di toko">
