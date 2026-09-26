@@ -14,6 +14,10 @@ if (!html.includes(marker)) throw new Error('root container not found in dist/in
 
 writeFileSync(page, html.replace(marker, `<div id="root">${render()}</div>`));
 if (existsSync(`${server}/assets`)) cpSync(`${server}/assets`, `${root}dist/assets`, { recursive: true });
+
+const sitemap = `${root}dist/sitemap.xml`;
+const today = new Date().toISOString().slice(0, 10);
+writeFileSync(sitemap, readFileSync(sitemap, 'utf8').replace(/<lastmod>[^<]*<\/lastmod>/, `<lastmod>${today}</lastmod>`));
 rmSync(server, { recursive: true, force: true });
 
 console.log('prerendered dist/index.html');
