@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 
 type EyebrowProps = {
-  as?: 'p' | 'dt';
+  as?: 'p' | 'dt' | 'span';
   tone?: 'light' | 'dark';
   className?: string;
   children: ReactNode;

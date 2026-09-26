@@ -79,6 +79,9 @@ const Hero = () => {
           style={step(1)}
           className="hero-rise mx-auto max-w-5xl text-[clamp(2.75rem,9vw,7.25rem)] leading-[0.92] font-extrabold tracking-[-0.02em] uppercase"
         >
+          <Eyebrow as="span" tone="dark" className="mb-6 justify-center leading-none">
+            {shop.name}
+          </Eyebrow>{' '}
           Sparepart <span className="text-sun">&amp;</span> bengkel motor{' '}
           <span className="text-sun">{shop.city}</span>
         </h1>
