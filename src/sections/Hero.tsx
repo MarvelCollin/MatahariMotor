@@ -74,7 +74,7 @@ const Hero = () => {
   return (
     <section id="top" className="relative overflow-hidden bg-ink text-white">
       <StoryBackdrop pattern="dots" />
-      <div className="relative z-10 mx-auto max-w-6xl px-4 pt-12 text-center sm:px-6 md:pt-20">
+      <div className="relative z-20 mx-auto max-w-6xl px-4 pt-12 text-center sm:px-6 md:pt-20">
         <h1
           style={step(1)}
           className="hero-rise mx-auto max-w-5xl text-[clamp(2.75rem,9vw,7.25rem)] leading-[0.92] font-extrabold tracking-[-0.02em] uppercase"
@@ -107,8 +107,9 @@ const Hero = () => {
 
       <div className="relative z-10 mx-auto mt-12 max-w-6xl px-4 sm:px-6 md:mt-16">
         <div className="grid items-end gap-x-10 md:grid-cols-[1fr_auto_1fr]">
-          <div style={step(2)} className="hero-zoom md:order-2">
-            <div className="mx-auto aspect-[2/1] w-[clamp(18rem,58vw,34rem)] overflow-hidden">
+          <div className="relative [--dial:clamp(18rem,58vw,34rem)] md:order-2">
+            <div className="sun-rays" aria-hidden="true" />
+            <div style={step(2)} className="hero-zoom mx-auto aspect-[2/1] w-(--dial) overflow-hidden">
               <Speedo />
             </div>
           </div>
