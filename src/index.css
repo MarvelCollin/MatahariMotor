@@ -166,6 +166,18 @@ footer {
   background-size: 58px 58px;
 }
 
+.tread {
+  position: absolute;
+  top: -16rem;
+  bottom: -16rem;
+  left: 58%;
+  z-index: 0;
+  width: 6rem;
+  rotate: 16deg;
+  pointer-events: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='52' fill='%2317140f' fill-opacity='.05'%3E%3Crect x='22' y='9' width='26' height='9' rx='2' transform='rotate(-24 35 13.5)'/%3E%3Crect x='48' y='35' width='26' height='9' rx='2' transform='rotate(24 61 39.5)'/%3E%3Crect x='4' y='31' width='10' height='13' rx='2'/%3E%3Crect x='82' y='5' width='10' height='13' rx='2'/%3E%3C/svg%3E") 50% 0 / 6rem 3.25rem repeat-y;
+}
+
 .story-rule {
   position: absolute;
   inset-inline: 0;

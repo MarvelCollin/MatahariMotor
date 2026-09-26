@@ -13,8 +13,11 @@ function App() {
       <main>
         <Hero />
         <Services />
-        <Products />
-        <Location />
+        <div className="relative overflow-clip">
+          <div className="tread" aria-hidden="true" />
+          <Products />
+          <Location />
+        </div>
       </main>
       <Footer />
       <WaBar />
