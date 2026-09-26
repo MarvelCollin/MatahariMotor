@@ -208,6 +208,12 @@ footer {
   }
 }
 
+@keyframes gear-turn {
+  to {
+    rotate: 75deg;
+  }
+}
+
 @keyframes hero-rise {
   from {
     opacity: 0;
@@ -313,7 +319,8 @@ footer {
   @media (prefers-reduced-motion: no-preference) {
     .story-glow,
     .story-grid,
-    .rim {
+    .rim,
+    .gear {
       animation: linear both;
       animation-timeline: --story;
       animation-range: cover;
@@ -329,6 +336,10 @@ footer {
 
     .rim {
       animation-name: rim-spin;
+    }
+
+    .gear {
+      animation-name: gear-turn;
     }
   }
 }
