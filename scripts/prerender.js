@@ -1,4 +1,4 @@
-import { readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
@@ -13,6 +13,7 @@ const marker = '<div id="root"></div>';
 if (!html.includes(marker)) throw new Error('root container not found in dist/index.html');
 
 writeFileSync(page, html.replace(marker, `<div id="root">${render()}</div>`));
+if (existsSync(`${server}/assets`)) cpSync(`${server}/assets`, `${root}dist/assets`, { recursive: true });
 rmSync(server, { recursive: true, force: true });
 
 console.log('prerendered dist/index.html');

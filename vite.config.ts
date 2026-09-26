@@ -6,4 +6,5 @@ import Icons from 'unplugin-icons/vite'
 export default defineConfig({
   plugins: [react(), tailwindcss(), Icons({ compiler: 'jsx', jsx: 'react' })],
   base: '/',
+  build: { ssrEmitAssets: true },
 })
