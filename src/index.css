@@ -106,12 +106,8 @@ footer {
 
 .story-glow {
   position: absolute;
-  inset-inline: -15%;
-  top: 0;
-  height: 100%;
-  background: radial-gradient(55% 45% at 50% 18%, var(--glow-tint), transparent 68%);
-  filter: blur(70px);
-  will-change: transform;
+  inset: -25% -15%;
+  background: radial-gradient(55% 30% at 50% 29%, var(--glow-tint), transparent 68%);
 }
 
 .story-grid {
@@ -119,7 +115,6 @@ footer {
   inset: -12%;
   mask-image: radial-gradient(62% 52% at 50% 38%, #000, transparent 76%);
   -webkit-mask-image: radial-gradient(62% 52% at 50% 38%, #000, transparent 76%);
-  will-change: transform;
 }
 
 .story-grid-dots {
@@ -154,10 +149,10 @@ footer {
 
 @keyframes story-glow {
   from {
-    translate: 0 -12%;
+    translate: 0 -8%;
   }
   to {
-    translate: 0 12%;
+    translate: 0 8%;
   }
 }
 
