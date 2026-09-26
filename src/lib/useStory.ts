@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -7,7 +7,7 @@ const staggered = ['story-row', 'story-card'];
 export const useStory = <T extends HTMLElement>() => {
   const root = useRef<T>(null);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const el = root.current;
     if (!el) return;
 
@@ -18,14 +18,22 @@ export const useStory = <T extends HTMLElement>() => {
 
     if (el.dataset.story === 'done') return;
 
-    staggered.forEach((c) =>
-      el.querySelectorAll<HTMLElement>(`.${c}`).forEach((n, i) => n.style.setProperty('--i', String(i))),
-    );
-    el.dataset.story = 'out';
-
     let timer = 0;
+    let first = true;
     const observer = new IntersectionObserver(
       ([entry]) => {
+        if (first) {
+          first = false;
+          if (entry.boundingClientRect.top < window.innerHeight) {
+            observer.disconnect();
+            el.dataset.story = 'done';
+            return;
+          }
+          staggered.forEach((c) =>
+            el.querySelectorAll<HTMLElement>(`.${c}`).forEach((n, i) => n.style.setProperty('--i', String(i))),
+          );
+          el.dataset.story = 'out';
+        }
         if (!entry.isIntersecting) return;
         observer.disconnect();
         el.dataset.story = 'in';
