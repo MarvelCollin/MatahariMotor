@@ -14,6 +14,10 @@ const links = [
 const Footer = () => (
   <footer className="story relative overflow-hidden bg-ink pb-24 text-white/70 md:pb-0">
     <StoryBackdrop pattern="dots" />
+    <div className="sunset" aria-hidden="true">
+      <div className="sun-rays" />
+      <div className="sunset-disc" />
+    </div>
     <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6">
       <div className="flex flex-wrap items-center justify-between gap-x-10 gap-y-6 py-14">
         <div>
