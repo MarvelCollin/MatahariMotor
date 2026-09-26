@@ -7,10 +7,13 @@
   --color-paper-deep: #e4dccb;
   --color-ink: #17140f;
   --color-ink-soft: #4d463b;
+  --color-muted: #6b6255;
+  --color-line: #ded5c4;
+  --color-tile: #e7e1d4;
   --color-sun: #eca81c;
   --color-brand: #c62a1f;
   --color-brand-dark: #a32118;
-  --font-display: "Big Shoulders Display Variable", "Arial Narrow", sans-serif;
+  --font-head: "Big Shoulders Display Variable", "Arial Narrow", sans-serif;
   --font-sans: "Schibsted Grotesk Variable", system-ui, sans-serif;
 }
 

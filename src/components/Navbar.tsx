@@ -12,7 +12,7 @@ const Navbar = () => (
     <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
       <a href="#top" className="flex items-center gap-2.5">
         <img src={logo} alt="" width={36} height={36} className="h-9 w-9" />
-        <span className="font-head text-lg font-bold [font-stretch:112%]">Matahari Motor</span>
+        <span className="font-head text-xl font-bold">Matahari Motor</span>
       </a>
 
       <nav data-nav className="hidden items-center gap-7 md:flex" aria-label="Utama">

@@ -20,7 +20,7 @@ const Footer = () => (
           <Eyebrow tone="dark" className="story-eyebrow">
             Siap bantu
           </Eyebrow>
-          <p className="story-title mt-4 font-head text-3xl leading-tight font-extrabold text-white sm:text-4xl">
+          <p className="story-title mt-4 font-head text-4xl leading-tight font-extrabold text-white sm:text-5xl">
             Butuh sparepart <span className="text-sun">atau servis?</span>
           </p>
         </div>

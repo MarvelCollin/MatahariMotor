@@ -9,7 +9,7 @@ import { mapsEmbed, mapsLink, waLink } from '../lib/wa';
 const Row = ({ label, children }: { label: string; children: ReactNode }) => (
   <div className="border-b border-line py-4">
     <Eyebrow as="dt">{label}</Eyebrow>
-    <dd className="mt-2 font-head leading-relaxed font-semibold">{children}</dd>
+    <dd className="mt-2 font-head text-lg leading-relaxed font-semibold">{children}</dd>
   </div>
 );
 

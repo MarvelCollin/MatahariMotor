@@ -31,11 +31,11 @@ const Services = () => (
         <ul>
           {services.map((s, i) => (
             <li key={s.name} className="story-row flex gap-5 border-t border-white/10 py-5 last:border-b">
-              <span aria-hidden="true" className="mt-1.5 font-head text-xs font-bold text-sun tabular-nums">
+              <span aria-hidden="true" className="mt-1 font-head text-sm font-bold text-sun tabular-nums">
                 {String(i + 1).padStart(2, '0')}
               </span>
               <div>
-                <h3 className="font-head text-lg leading-snug font-bold sm:text-xl">{s.name}</h3>
+                <h3 className="font-head text-xl leading-snug font-bold sm:text-2xl">{s.name}</h3>
                 <p className="mt-1.5 text-white/60">{s.items.join(' · ')}</p>
               </div>
             </li>

@@ -19,8 +19,8 @@ const Products = () => (
       <ul className="grid grid-cols-2 gap-x-5 gap-y-10">
         {products.map((p, i) => (
           <li key={p.id} className="story-card group relative flex flex-col">
-            <div className="relative aspect-square overflow-hidden rounded-xl bg-tile ring-1 ring-ink/5 transition-colors duration-200 group-hover:bg-[#e9e9e7]">
-              <span className="absolute top-3.5 left-4 font-head text-xs font-bold text-ink/25 tabular-nums">
+            <div className="relative aspect-square overflow-hidden rounded-xl bg-tile ring-1 ring-ink/5 transition-colors duration-200 group-hover:bg-paper-deep">
+              <span className="absolute top-3.5 left-4 font-head text-sm font-bold text-ink/30 tabular-nums">
                 {String(i + 1).padStart(2, '0')}
               </span>
               <span className="absolute top-3.5 right-4 text-[0.625rem] font-medium tracking-[0.18em] text-ink/40 uppercase">

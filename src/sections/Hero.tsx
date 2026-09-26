@@ -64,7 +64,7 @@ const Fact = ({ label, delay, align = 'left', children }: FactProps) => (
     <Eyebrow as="dt" tone="dark">
       {label}
     </Eyebrow>
-    <dd className="mt-2 font-head text-base leading-snug font-semibold">{children}</dd>
+    <dd className="mt-2 font-head text-lg leading-snug font-semibold">{children}</dd>
   </div>
 );
 
